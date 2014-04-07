@@ -26,7 +26,7 @@ public class Main {
 		Main game = new Main();
 		String title = "Game Title";
 		game.initDisplay(title, 800, 600);
-		game.splash();
+		game.splash(true);
 		game.open();
 		game.play();
 		game.close();
@@ -67,7 +67,7 @@ public class Main {
 	/**
 	 * Displays a Splash Screen for a minimum of one second while game loads
 	 */
-	public void splash() {
+	public void splash(boolean fill) {
 		//Init and bind image as texture
 		Texture splashTexture = null;
 		try {
@@ -82,8 +82,20 @@ public class Main {
 			Color.black.bind();
 		}
 		//Render Image centered on the screen
+		GL11.glBegin(GL11.GL_QUADS);
 		if(!splashTexture.equals(null)) {
-			GL11.glBegin(GL11.GL_QUADS);
+			if(fill) {
+				// Stretches image to screen size
+				GL11.glTexCoord2f(0,0);
+				GL11.glVertex2f(0,0);
+				GL11.glTexCoord2f(1,0);
+				GL11.glVertex2f(Display.getWidth(), 0);
+				GL11.glTexCoord2f(1,1);
+				GL11.glVertex2f(Display.getWidth(), Display.getHeight());
+				GL11.glTexCoord2f(0,1);
+				GL11.glVertex2f(0, Display.getHeight());
+			} else {
+				// Centers image with no stretch
 				GL11.glTexCoord2f(0,0);
 				GL11.glVertex2f((Display.getWidth()/2)-(splashTexture.getTextureWidth()/2), (Display.getHeight()/2)-(splashTexture.getTextureHeight()/2));
 				GL11.glTexCoord2f(1,0);
@@ -92,6 +104,7 @@ public class Main {
 				GL11.glVertex2f((Display.getWidth()/2)+(splashTexture.getTextureWidth()/2), (Display.getHeight()/2)+(splashTexture.getTextureHeight()/2));
 				GL11.glTexCoord2f(0,1);
 				GL11.glVertex2f((Display.getWidth()/2)-(splashTexture.getTextureWidth()/2), (Display.getHeight()/2)+(splashTexture.getTextureHeight()/2));
+			}
 			GL11.glEnd();
 		}
 		Display.update();
