@@ -4,11 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.input.Keyboard;
@@ -82,8 +78,8 @@ public class Main {
 			Color.black.bind();
 		}
 		//Render Image centered on the screen
-		GL11.glBegin(GL11.GL_QUADS);
 		if(!splashTexture.equals(null)) {
+			GL11.glBegin(GL11.GL_QUADS);
 			if(fill) {
 				// Stretches image to screen size
 				GL11.glTexCoord2f(0,0);
@@ -130,14 +126,81 @@ public class Main {
 	 */
 	public void open() {
 		
-		while(isSplash);
+		while(isSplash)
+			Display.update();
 	}
 	
 	/**
 	 * Main 
 	 */
 	public void play() {
-		
+		//Move to a loadTexture Method
+		Texture splashTexture = null;
+		try {
+			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/character.png")));
+		} catch (IOException e1) {
+			System.exit(0);
+			e1.printStackTrace();
+		}
+		int x = 0, y = 0;
+		boolean wState = false, aState = false, sState = false, dState = false;
+		boolean close = false;
+		while(!Display.isCloseRequested() && !close) {
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			
+			while(Keyboard.next()) {
+				if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState())
+					close = true;
+				if(Keyboard.getEventKey() == Keyboard.KEY_W ) {
+					if(Keyboard.getEventKeyState())
+						wState = true;
+					else
+						wState = false;
+				}
+				if(Keyboard.getEventKey() == Keyboard.KEY_A ) {
+					if(Keyboard.getEventKeyState())
+						aState = true;
+					else
+						aState = false;
+				}
+				if(Keyboard.getEventKey() == Keyboard.KEY_S ) {
+					if(Keyboard.getEventKeyState())
+						sState = true;
+					else
+						sState = false;
+				}
+				if(Keyboard.getEventKey() == Keyboard.KEY_D ) {
+					if(Keyboard.getEventKeyState())
+						dState = true;
+					else
+						dState = false;
+				}
+			}
+			if(wState)
+				y-=5;
+			if(sState)
+				y+=5;
+			if(aState)
+				x-=5;
+			if(dState)
+				x+=5;
+				
+			//Render Image
+			splashTexture.bind(); // or GL11.glBind(texture.getTextureID());
+			if(!splashTexture.equals(null)) {
+				GL11.glBegin(GL11.GL_QUADS);
+					GL11.glTexCoord2f(0,0);
+					GL11.glVertex2f(x, y);
+					GL11.glTexCoord2f(1,0);
+					GL11.glVertex2f(x+128,y);
+					GL11.glTexCoord2f(1,1);
+					GL11.glVertex2f(x+128,y+128);
+					GL11.glTexCoord2f(0,1);
+					GL11.glVertex2f(x,y+128);
+				GL11.glEnd();
+			}
+			Display.update();
+		}
 	}
 	
 	/**
