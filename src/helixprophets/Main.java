@@ -134,16 +134,18 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
+		Color.white.bind();
 		//Move to a loadTexture Method
 		Texture splashTexture = null;
 		try {
-			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/character.png")));
+			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/mage.png")));
 		} catch (IOException e1) {
 			System.exit(0);
 			e1.printStackTrace();
 		}
 		int x = 0, y = 0;
 		boolean wState = false, aState = false, sState = false, dState = false;
+		boolean direction = false;
 		boolean close = false;
 		while(!Display.isCloseRequested() && !close) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -180,23 +182,27 @@ public class Main {
 				y-=5;
 			if(sState)
 				y+=5;
-			if(aState)
+			if(aState && !dState) {
 				x-=5;
-			if(dState)
+				direction = true; //face left
+			}
+			if(dState && !aState) {
 				x+=5;
-				
+				direction = false; //face right
+			}
+			
 			//Render Image
 			splashTexture.bind(); // or GL11.glBind(texture.getTextureID());
 			if(!splashTexture.equals(null)) {
 				GL11.glBegin(GL11.GL_QUADS);
-					GL11.glTexCoord2f(0,0);
+					GL11.glTexCoord2f(direction?((float)1/2): (0),0);
 					GL11.glVertex2f(x, y);
-					GL11.glTexCoord2f(1,0);
-					GL11.glVertex2f(x+128,y);
-					GL11.glTexCoord2f(1,1);
-					GL11.glVertex2f(x+128,y+128);
-					GL11.glTexCoord2f(0,1);
-					GL11.glVertex2f(x,y+128);
+					GL11.glTexCoord2f(direction?(1):((float)1/2),0);
+					GL11.glVertex2f(x+splashTexture.getTextureWidth()/2,y);
+					GL11.glTexCoord2f(direction?(1):((float)1/2),1);
+					GL11.glVertex2f(x+splashTexture.getTextureWidth()/2,y+splashTexture.getTextureHeight());
+					GL11.glTexCoord2f(direction?((float)1/2): (0),1);
+					GL11.glVertex2f(x,y+splashTexture.getTextureHeight());
 				GL11.glEnd();
 			}
 			Display.update();
