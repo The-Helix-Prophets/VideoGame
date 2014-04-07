@@ -77,7 +77,6 @@ public class Main {
 		}
 		
 		if(!splashTexture.equals(null)) {
-			System.out.println("Binding");
 			splashTexture.bind(); // or GL11.glBind(texture.getTextureID());
 		} else {
 			Color.black.bind();
@@ -118,7 +117,7 @@ public class Main {
 	 */
 	public void open() {
 		
-		while(true);
+		while(isSplash);
 	}
 	
 	/**
