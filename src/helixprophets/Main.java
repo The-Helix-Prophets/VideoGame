@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.lwjgl.input.Mouse;
@@ -18,9 +19,21 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class Main {
 	private static volatile boolean isSplash = true;
 	
+	private Texture[] mageMoveTextures = new Texture[9];
+	private Texture[] mageFightTextures = new Texture[9];
+	
+	private Texture[] mageFighting = new Texture[9];
+	private Texture[] fighterMoveTextures = new Texture[9];
+	private Texture[] fighterFighting = new Texture[9];
+	private Texture[] rogueMoveTextures = new Texture[9];
+	private Texture[] rogueFighting = new Texture[9];
+	
+	private Texture monsters;
+	private Texture terrain;
+	
 	public static void main(String[] args) {
 		Main game = new Main();
-		String title = "Game Title";
+		String title = "I’m not Saying You’re Obligated to Explore this Castle, but...";
 		game.initDisplay(title, 800, 600);
 		game.splash(true);
 		game.open();
@@ -68,8 +81,8 @@ public class Main {
 		Texture splashTexture = null;
 		try {
 			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/splash.png")));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		if(!splashTexture.equals(null)) {
@@ -125,7 +138,13 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
-		
+		try {
+			mageMoveTextures[0] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/mage.png")));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while(isSplash)
 			Display.update();
 	}
@@ -134,76 +153,24 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
-		Color.white.bind();
-		//Move to a loadTexture Method
-		Texture splashTexture = null;
-		try {
-			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/mage.png")));
-		} catch (IOException e1) {
-			System.exit(0);
-			e1.printStackTrace();
-		}
-		int x = 0, y = 0;
-		boolean wState = false, aState = false, sState = false, dState = false;
-		boolean direction = false;
-		boolean close = false;
+		
+		boolean close = false, wState = false, aState = false, sState = false, dState = false;
 		while(!Display.isCloseRequested() && !close) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			while(Keyboard.next()) {
 				if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState())
 					close = true;
-				if(Keyboard.getEventKey() == Keyboard.KEY_W ) {
-					if(Keyboard.getEventKeyState())
-						wState = true;
-					else
-						wState = false;
-				}
-				if(Keyboard.getEventKey() == Keyboard.KEY_A ) {
-					if(Keyboard.getEventKeyState())
-						aState = true;
-					else
-						aState = false;
-				}
-				if(Keyboard.getEventKey() == Keyboard.KEY_S ) {
-					if(Keyboard.getEventKeyState())
-						sState = true;
-					else
-						sState = false;
-				}
-				if(Keyboard.getEventKey() == Keyboard.KEY_D ) {
-					if(Keyboard.getEventKeyState())
-						dState = true;
-					else
-						dState = false;
-				}
-			}
-			if(wState)
-				y-=5;
-			if(sState)
-				y+=5;
-			if(aState && !dState) {
-				x-=5;
-				direction = true; //face left
-			}
-			if(dState && !aState) {
-				x+=5;
-				direction = false; //face right
-			}
-			
-			//Render Image
-			splashTexture.bind(); // or GL11.glBind(texture.getTextureID());
-			if(!splashTexture.equals(null)) {
-				GL11.glBegin(GL11.GL_QUADS);
-					GL11.glTexCoord2f(direction?((float)1/2): (0),0);
-					GL11.glVertex2f(x, y);
-					GL11.glTexCoord2f(direction?(1):((float)1/2),0);
-					GL11.glVertex2f(x+splashTexture.getTextureWidth()/2,y);
-					GL11.glTexCoord2f(direction?(1):((float)1/2),1);
-					GL11.glVertex2f(x+splashTexture.getTextureWidth()/2,y+splashTexture.getTextureHeight());
-					GL11.glTexCoord2f(direction?((float)1/2): (0),1);
-					GL11.glVertex2f(x,y+splashTexture.getTextureHeight());
-				GL11.glEnd();
+				
+				if(Keyboard.getEventKey() == Keyboard.KEY_W )
+					wState = Keyboard.getEventKeyState();
+				if(Keyboard.getEventKey() == Keyboard.KEY_A )
+					aState = Keyboard.getEventKeyState();
+				if(Keyboard.getEventKey() == Keyboard.KEY_S )
+					sState = Keyboard.getEventKeyState();
+				if(Keyboard.getEventKey() == Keyboard.KEY_D )
+					dState = Keyboard.getEventKeyState();
+				
 			}
 			Display.update();
 		}
