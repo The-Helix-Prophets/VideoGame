@@ -1,4 +1,4 @@
-package beings;
+package helixprophets.beings;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -11,7 +11,15 @@ public abstract class Character {
 	private int crawlSpeed;
 	private int jumpHeight;
 	
-	
+	/**
+	 * Assigns Texture Arrays and General Character Variables
+	 * @param moveTextures Textures for when character moves
+	 * @param fightTextures Textures for when character fights
+	 * @param crawlTextures Textures for when character crawls
+	 * @param moveSpeed Speed (Pixels?) at which character moves
+	 * @param crawlSpeed Speed at which character crawls
+	 * @param jumpHeight Speed at which character jumps
+	 */
 	public Character(Texture[] moveTextures, Texture[] fightTextures, Texture[] crawlTextures, int moveSpeed, int crawlSpeed, int jumpHeight) {
 		this.moveTextures = moveTextures;
 		this.moveSpeed = moveSpeed;
@@ -21,6 +29,10 @@ public abstract class Character {
 		this.crawlSpeed = crawlSpeed;
 	}
 	
+	/**
+	 * Handles character jump textures and movement
+	 * @param threaded if you want the jump to operate concurrently
+	 */
 	public void jump(boolean threaded) {
 		if(threaded) {
 			new Thread(new Runnable() {
@@ -36,6 +48,10 @@ public abstract class Character {
 		
 	}
 	
+	/**
+	 * Handles character crawl textures and movement
+	 * @param threaded if you want the jump to operate concurrently
+	 */
 	public void crawl(boolean threaded) {
 		if(threaded) {
 			new Thread(new Runnable() {
@@ -51,6 +67,10 @@ public abstract class Character {
 		
 	}
 	
+	/**
+	 * Handles character fight textures
+	 * @param threaded if you want the jump to operate concurrently
+	 */
 	public void fight(boolean threaded) {
 		if(threaded) {
 			new Thread(new Runnable() {
