@@ -123,7 +123,7 @@ public class Main {
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -138,13 +138,15 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
+		/*
 		try {
-			mageMoveTextures[0] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/mage.png")));
+			//TODO take care of textures and object init here
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		while(isSplash)
 			Display.update();
 	}
@@ -153,33 +155,16 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
-		
-		boolean close = false, wState = false, aState = false, sState = false, dState = false;
-		while(!Display.isCloseRequested() && !close) {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-			while(Keyboard.next()) {
-				if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState())
-					close = true;
-				
-				if(Keyboard.getEventKey() == Keyboard.KEY_W )
-					wState = Keyboard.getEventKeyState();
-				if(Keyboard.getEventKey() == Keyboard.KEY_A )
-					aState = Keyboard.getEventKeyState();
-				if(Keyboard.getEventKey() == Keyboard.KEY_S )
-					sState = Keyboard.getEventKeyState();
-				if(Keyboard.getEventKey() == Keyboard.KEY_D )
-					dState = Keyboard.getEventKeyState();
-				
-			}
-			Display.update();
-		}
+		//Poll Keyboard
+		//Update Positions
+		//Process attacks, map position changes, ect
 	}
 	
 	/**
 	 * Closes Game
 	 */
 	public void close() {
+		//Save state maybe?????
 		Display.destroy();
 	}
 }
