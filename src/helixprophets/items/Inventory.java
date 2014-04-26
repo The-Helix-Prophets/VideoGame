@@ -9,7 +9,7 @@ public class Inventory {
 		inventory = new Item[size];
 	}
 	
-	/** TODO rewrite using exceptions
+	/**
 	 * Add Item to Inventory
 	 * @param item Item to add
 	 * @param slot Place to add item
@@ -21,7 +21,7 @@ public class Inventory {
 		inventory[slot]=item;
 	}
 	
-	/** TODO rewrite using exceptions
+	/**
 	 * Remove Item from Inventory
 	 * @param item Item to be removed
 	 * @param slot Place Item should be
@@ -35,7 +35,7 @@ public class Inventory {
 		inventory[slot]=null;
 	}
 	
-	/** TODO rewrite using exceptions
+	/**
 	 * Move item in Inventory
 	 * @param initSlot Slot the Item should be in
 	 * @param newSlot Slot Item will end up in
@@ -51,7 +51,7 @@ public class Inventory {
 		}
 	}
 	
-	/** TODO rewrite using exceptions
+	/**
 	 * Return single Item from Inventory
 	 * @param slot
 	 * @return
@@ -69,10 +69,5 @@ public class Inventory {
 		return inventory;
 	}
 	
-	private class InventoryException extends Exception {
-
-		public InventoryException(String message) {
-			super(message);
-		}
-	}
+	private class InventoryException extends Exception {public InventoryException(String message) {super(message);}}
 }
