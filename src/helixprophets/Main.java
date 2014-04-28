@@ -150,6 +150,7 @@ public class Main {
 		*/
 		while(isSplash)
 			Display.update();
+			Display.sync(60);
 	}
 	
 	/**
