@@ -117,6 +117,7 @@ public class Main {
 			GL11.glEnd();
 		}
 		Display.update();
+		Display.sync(60);
 		
 		new Thread(new Runnable() {
 			
