@@ -11,7 +11,7 @@ public class Inventory {
 		inventory = new ArrayList<Item>();
 	}
 	
-	/**
+	/** TODO rewrite using exceptions
 	 * Add Item to Inventory
 	 * @param item Item to add
 	 * @param index Place to add item
@@ -23,7 +23,7 @@ public class Inventory {
 		inventory.set(index, item);
 	}
 	
-	/**
+	/** TODO rewrite using exceptions
 	 * Remove Item from Inventory
 	 * @param item Item to be removed
 	 * @param index Place Item should be
@@ -37,7 +37,7 @@ public class Inventory {
 		inventory.set(index, null);
 	}
 	
-	/**
+	/** TODO rewrite using exceptions
 	 * Move item in Inventory
 	 * @param initIndex Slot the Item should be in
 	 * @param newIndex Slot Item will end up in
@@ -53,7 +53,7 @@ public class Inventory {
 		}
 	}
 	
-	/**
+	/** TODO rewrite using exceptions
 	 * Return single Item from Inventory
 	 * @param index
 	 * @return Item
@@ -80,5 +80,10 @@ public class Inventory {
 		return (int) Math.ceil(inventory.size()/(double)pageSize);
 	}
 	
-	private class InventoryException extends Exception {public InventoryException(String message) {super(message);}}
+	private class InventoryException extends Exception {
+
+		public InventoryException(String message) {
+			super(message);
+		}
+	}
 }
