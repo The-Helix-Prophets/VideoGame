@@ -67,6 +67,7 @@ public class Inventory {
 	 */
 	public Item[] getInventory() {
 		return inventory;
+<<<<<<< HEAD
 	}
 	
 	private class InventoryException extends Exception {
@@ -74,5 +75,7 @@ public class Inventory {
 		public InventoryException(String message) {
 			super(message);
 		}
+=======
+>>>>>>> parent of cce9e8c... Inventory currently broken, but re-added .classpath, this may not go
 	}
 }
