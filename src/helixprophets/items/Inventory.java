@@ -3,70 +3,81 @@ package helixprophets.items;
 import java.util.ArrayList;
 
 public class Inventory {
-	private Item[] inventory;
+	private static final int pageSize = 30;
 	
-	public Inventory(int size) {
-		inventory = new Item[size];
+	private ArrayList<Item> inventory;
+	
+	public Inventory() {
+		inventory = new ArrayList<Item>();
 	}
 	
 	/**
 	 * Add Item to Inventory
 	 * @param item Item to add
-	 * @param slot Place to add item
+	 * @param index Place to add item
 	 * @throws ItemExistsException Thrown if the intended slot is occupied already
 	 */
-	public void addItem(Item item, int slot) throws InventoryException {
-		if(inventory[slot]!=null)
+	public void addItem(Item item, int index) throws InventoryException {
+		if(inventory.get(index)!=null)
 			throw new InventoryException("Slot is not Empty");
-		inventory[slot]=item;
+		inventory.set(index, item);
 	}
 	
 	/**
 	 * Remove Item from Inventory
 	 * @param item Item to be removed
-	 * @param slot Place Item should be
+	 * @param index Place Item should be
 	 * @throws InventoryException Thrown if the intended slot is unoccupied or the supplied item doesn't match the item in the slot
 	 */
-	public void removeItem(Item item, int slot) throws InventoryException {
-		if(inventory[slot] == null)
+	public void removeItem(Item item, int index) throws InventoryException {
+		if(inventory.get(index) == null)
 			throw new InventoryException("Slot is already empty");
-		if(item != inventory[slot])
+		if(item != inventory.get(index))
 			throw new InventoryException("Item given doesn't match Item in Slot");
-		inventory[slot]=null;
+		inventory.set(index, null);
 	}
 	
 	/**
 	 * Move item in Inventory
-	 * @param initSlot Slot the Item should be in
-	 * @param newSlot Slot Item will end up in
+	 * @param initIndex Slot the Item should be in
+	 * @param newIndex Slot Item will end up in
 	 * @throws InventoryException 
 	 */
-	public void moveItem(Item item, int initSlot, int newSlot) throws InventoryException {
-		addItem(item, newSlot);
+	public void moveItem(Item item, int initIndex, int newIndex) throws InventoryException {
+		addItem(item, newIndex);
 		try {
-			removeItem(item, initSlot);
+			removeItem(item, initIndex);
 		} catch (InventoryException e) {
-				removeItem(item, newSlot);
+				removeItem(item, newIndex);
 				throw new InventoryException(e.getMessage());
 		}
 	}
 	
 	/**
 	 * Return single Item from Inventory
-	 * @param slot
-	 * @return
+	 * @param index
+	 * @return Item
+	 * @throws InventoryException 
 	 */
-	public Item getItem(int slot) {
-		if(inventory[slot] != null)
-			return inventory[slot];
-		return null;
+	public Item getItem(int index) throws InventoryException {
+		if(inventory.get(index) != null)
+			return inventory.get(index);
+		throw new InventoryException("Slot is empty");
 	}
+	
 	/**
-	 * Return entire Inventory Array
+	 * 
+	 * @param page
 	 * @return
 	 */
-	public Item[] getInventory() {
-		return inventory;
+	public Item[] getInventory(int page) {
+		if(page==numPages())
+			return (Item[]) inventory.subList(pageSize*(page-1), inventory.size()-1).toArray();
+		return (Item[]) inventory.subList(pageSize*(page-1), (pageSize*(page-1))+pageSize-1).toArray();
+	}
+	
+	public int numPages() {
+		return (int) Math.ceil(inventory.size()/(double)pageSize);
 	}
 	
 	private class InventoryException extends Exception {public InventoryException(String message) {super(message);}}
