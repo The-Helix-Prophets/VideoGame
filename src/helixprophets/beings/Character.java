@@ -13,7 +13,7 @@ public abstract class Character {
 	private int crawlSpeed;
 	private int jumpHeight;
 	
-	private static Inventory inventory = new Inventory();
+	private static Inventory inventory = new Inventory(50);
 	
 	/**
 	 * Assigns Texture Arrays and General Character Variables
