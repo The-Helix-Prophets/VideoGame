@@ -73,7 +73,7 @@ public class Inventory {
 	public Item[] getInventory(int page) {
 		if(page==numPages())
 			return (Item[]) inventory.subList(pageSize*(page-1), inventory.size()-1).toArray();
-		return (Item[]) inventory.subList(pageSize*(page-1), (pageSize*(page-1))+pageSize-1).toArray();
+		return /*POLYMORPHISM BITCHES!!!*/(Item[]) inventory.subList(pageSize*(page-1), (pageSize*(page-1))+pageSize-1).toArray();
 	}
 	
 	public int numPages() {
