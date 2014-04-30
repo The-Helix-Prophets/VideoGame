@@ -1,5 +1,6 @@
 package helixprophets.beings;
 
+import helixprophets.Coords;
 import helixprophets.items.Inventory;
 
 import org.newdawn.slick.opengl.Texture;
@@ -12,6 +13,8 @@ public abstract class Character {
 	private int moveSpeed;
 	private int crawlSpeed;
 	private int jumpHeight;
+	
+	private Coords coords;
 	
 	private static Inventory inventory = new Inventory();
 	
