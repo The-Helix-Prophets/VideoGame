@@ -1,6 +1,7 @@
 package helixprophets;
 
 import static org.lwjgl.opengl.GL11.*;
+import helixprophets.beings.classes.Rogue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +40,7 @@ public class Main {
 		game.open();
 		game.play();
 		game.close();
+		
 	}
 	
 	/**
@@ -139,15 +141,13 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
-		/*
 		try {
-			//TODO take care of textures and object init here
+			Texture rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/splash.png")));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
 		while(isSplash)
 			Display.update();
 			Display.sync(60);

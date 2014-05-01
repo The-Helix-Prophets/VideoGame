@@ -16,6 +16,8 @@ public abstract class Character {
 	
 	private Coords coords;
 	
+	private int health; //How did I forget that?
+	
 	private static Inventory inventory = new Inventory();
 	
 	/**
