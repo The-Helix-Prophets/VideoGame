@@ -34,7 +34,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Main game = new Main();
-		String title = "I’m not Saying You’re Obligated to Explore this Castle, but...";
+		String title = "I'm not Saying You're Obligated to Explore this Castle, but...";
 		game.initDisplay(title, 800, 600);
 		game.splash(true);
 		game.open();
