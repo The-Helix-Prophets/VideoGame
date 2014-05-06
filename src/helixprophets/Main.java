@@ -1,6 +1,7 @@
 package helixprophets;
 
 import static org.lwjgl.opengl.GL11.*;
+import helixprophets.beings.classes.Mage;
 import helixprophets.beings.classes.Rogue;
 
 import java.io.File;
@@ -127,6 +128,7 @@ public class Main {
 			public void run() {
 				try {
 					Thread.sleep(3000);
+					
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -157,6 +159,11 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
+		Mage mage = new Mage(null, null, null, 5, 10, 7);
+		while(!(Keyboard.getEventKey() == Keyboard.KEY_Q))
+		{
+		mage.displayMage();
+		}
 		//Poll Keyboard
 		//Update Positions
 		//Process attacks, map position changes, ect

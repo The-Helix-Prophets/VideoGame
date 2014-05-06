@@ -32,7 +32,7 @@ public class Mage extends Character {
 		//Init and bind image as texture
 		Texture mageTexture = null;
 		try {
-			mageTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/mage.png")));
+			mageTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/roguesheet.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
