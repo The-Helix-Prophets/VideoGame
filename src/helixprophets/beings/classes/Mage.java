@@ -15,6 +15,8 @@ import helixprophets.beings.Character;
 public class Mage extends Character {
 	
 	private static volatile boolean mageDisplayed = true;
+	
+	
 
 	public Mage(Texture[] moveTextures, Texture[] fightTextures,
 			Texture[] crawlTextures, int moveSpeed, int crawlSpeed,
@@ -78,13 +80,7 @@ new Thread(new Runnable() {
 	
 	
 	
-	public int getXPosition(){
-		return 0;
-	}
-
-	public int getYPosition(){
-		return 0;
-	}
+	
 
 	/*public void displayFighter(){
 	
