@@ -134,6 +134,7 @@ public class Main {
 					e.printStackTrace();
 				} finally {
 					isSplash = false;
+					
 				}
 			}
 		}).start();
@@ -159,11 +160,12 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
-		Mage mage = new Mage(null, null, null, 5, 10, 7);
+		/*Mage mage = new Mage(null, null, null, 5, 10, 7);
 		while(!(Keyboard.getEventKey() == Keyboard.KEY_Q))
 		{
 		mage.displayMage();
 		}
+		*/
 		//Poll Keyboard
 		//Update Positions
 		//Process attacks, map position changes, ect
