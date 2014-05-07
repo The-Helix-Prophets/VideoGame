@@ -82,6 +82,7 @@ public class Main {
 	public void splash(boolean fill) {
 		//Init and bind image as texture
 		Texture splashTexture = null;
+		
 		try {
 			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/splash.png")));
 		} catch (IOException e) {
@@ -90,10 +91,15 @@ public class Main {
 		
 		if(!splashTexture.equals(null)) {
 			splashTexture.bind(); // or GL11.glBind(texture.getTextureID());
-		} else {
+		} else
+			{
 			Color.black.bind();
-		}
+			}
+		
+	
 		//Render Image centered on the screen
+		
+		
 		if(!splashTexture.equals(null)) {
 			GL11.glBegin(GL11.GL_QUADS);
 			if(fill) {
@@ -122,7 +128,10 @@ public class Main {
 		Display.update();
 		Display.sync(60);
 		
-		new Thread(new Runnable() {
+		
+		
+		
+		  new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -138,20 +147,29 @@ public class Main {
 				}
 			}
 		}).start();
+		
 	}
 	
 	/**
 	 * Initializes Game Setup
 	 */
 	public void open() {
+		Texture rogueTexture = null;
 		try {
-			Texture rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/splash.png")));
-			
+			rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/rogueWalk1.png")));	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		while(isSplash)
+		if(!rogueTexture.equals(null)) {
+			rogueTexture.bind(); // or GL11.glBind(texture.getTextureID());
+		} else {
+			Color.black.bind();
+		}
+			
+		
+		
+		while(!Display.isCloseRequested())
 			Display.update();
 			Display.sync(60);
 	}
@@ -160,6 +178,8 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
+		
+		
 		/*Mage mage = new Mage(null, null, null, 5, 10, 7);
 		while(!(Keyboard.getEventKey() == Keyboard.KEY_Q))
 		{
