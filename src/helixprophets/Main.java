@@ -154,6 +154,8 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
+		
+		//taking the first walking rogue picture and trying to put it on the screen after splash
 		Texture rogueTexture = null;
 		try {
 			rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/rogueWalk1.png")));	
