@@ -31,6 +31,9 @@ public class Main {
 	private Texture[] rogueMoveTextures = new Texture[9];
 	private Texture[] rogueFighting = new Texture[9];
 	
+	
+	Texture rogueTexture;
+	
 	private Texture monsters;
 	private Texture terrain;
 	
@@ -138,7 +141,6 @@ public class Main {
 			public void run() {
 				try {
 					Thread.sleep(3000);
-					Display.update();
 					
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -159,24 +161,28 @@ public class Main {
 	 */
 	public void open() {
 	
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); 
-		Display.update();
-	
 		
 		//taking the first walking rogue picture and trying to put it on the screen after splash
-		Texture rogueTexture = null;
 		try {
 			rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/rogueWalk1.png")));	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		while(isSplash); //wait for splash screen to be over
+	}
+	
+	/**
+	 * Main 
+	 */
+	public void play() {
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); 
 		if(!rogueTexture.equals(null)) {
 			rogueTexture.bind(); 
 		} else {
 			Color.black.bind();
 		}
-			
 		if(!rogueTexture.equals(null)) {
 			
 			GL11.glBegin(GL11.GL_QUADS);
@@ -189,19 +195,12 @@ public class Main {
 				GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
 				GL11.glTexCoord2f(0,1);
 				GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
-			}
 			GL11.glEnd();
-		
-		
-		while(!Display.isCloseRequested())
+		}
+		while(!Display.isCloseRequested()) {
 			Display.update();
 			Display.sync(60);
-	}
-	
-	/**
-	 * Main 
-	 */
-	public void play() {
+		}
 		
 		
 		/*Mage mage = new Mage(null, null, null, 5, 10, 7);
