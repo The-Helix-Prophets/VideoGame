@@ -98,8 +98,8 @@ public class Main {
 			}
 		
 	
-		//Render Image centered on the screen
 		
+		//Render Image centered on the screen
 		
 		if(!splashTexture.equals(null)) {
 			GL11.glBegin(GL11.GL_QUADS);
@@ -138,6 +138,7 @@ public class Main {
 			public void run() {
 				try {
 					Thread.sleep(3000);
+					Display.update();
 					
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -148,7 +149,8 @@ public class Main {
 				}
 			}
 		}).start();
-		
+		  
+		  
 	}
 	
 	
@@ -156,6 +158,9 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
+	
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); 
+		Display.update();
 	
 		
 		//taking the first walking rogue picture and trying to put it on the screen after splash
