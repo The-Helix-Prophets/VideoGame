@@ -20,6 +20,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Main {
 	private static volatile boolean isSplash = true;
+	Texture splashTexture = null;
 	
 	private Texture[] mageMoveTextures = new Texture[9];
 	private Texture[] mageFightTextures = new Texture[9];
@@ -81,7 +82,7 @@ public class Main {
 	 */
 	public void splash(boolean fill) {
 		//Init and bind image as texture
-		Texture splashTexture = null;
+		
 		
 		try {
 			splashTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/splash.png")));
@@ -150,10 +151,12 @@ public class Main {
 		
 	}
 	
+	
 	/**
 	 * Initializes Game Setup
 	 */
 	public void open() {
+	
 		
 		//taking the first walking rogue picture and trying to put it on the screen after splash
 		Texture rogueTexture = null;
@@ -164,11 +167,25 @@ public class Main {
 			e.printStackTrace();
 		}
 		if(!rogueTexture.equals(null)) {
-			rogueTexture.bind(); // or GL11.glBind(texture.getTextureID());
+			rogueTexture.bind(); 
 		} else {
 			Color.black.bind();
 		}
 			
+		if(!rogueTexture.equals(null)) {
+			
+			GL11.glBegin(GL11.GL_QUADS);
+				// Centers image with no stretch
+				GL11.glTexCoord2f(0,0);
+				GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
+				GL11.glTexCoord2f(1,0);
+				GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
+				GL11.glTexCoord2f(1,1);
+				GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
+				GL11.glTexCoord2f(0,1);
+				GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
+			}
+			GL11.glEnd();
 		
 		
 		while(!Display.isCloseRequested())
