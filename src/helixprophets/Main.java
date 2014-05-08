@@ -179,7 +179,7 @@ public class Main {
 			}
 		}
 		
-		for(int i = 1; i < 3; i++)
+		for(int i = 1; i < 4; i++)
 		{
 			try {
 				rogueCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/rogueCrawl" + i + ".png")));
@@ -190,7 +190,7 @@ public class Main {
 		
 		//putting the fighter move textures in the texture array
 		
-		for(int i = 1; i < 3; i++)
+		for(int i = 1; i < 4; i++)
 		{
 			try {
 				fighterFighting[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightfightframe" + i + ".png")));
@@ -199,7 +199,7 @@ public class Main {
 			}
 		}
 		
-		for(int i = 1; i < 9; i++)
+		for(int i = 1; i < 10; i++)
 		{
 			try {
 				fighterMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightwalkframe" + i + ".png")));
@@ -208,7 +208,7 @@ public class Main {
 			}
 		}
 		
-		for(int i = 1; i < 3; i++)
+		for(int i = 1; i < 4; i++)
 		{
 			try {
 				fighterCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightcrawl" + i + ".png")));
@@ -222,7 +222,7 @@ public class Main {
 		
 	//and finally, putting the mage textures in its texture array
 		
-		for(int i = 1; i < 9; i++)
+		for(int i = 1; i < 10; i++)
 		{
 			try {
 				mageFightTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magefight" + i + ".png")));
@@ -231,7 +231,7 @@ public class Main {
 			}
 		}
 		
-		for(int i = 1; i < 9; i++)
+		for(int i = 1; i < 10; i++)
 		{
 			try {
 				mageMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magewalkframe" + i + ".png")));
@@ -240,10 +240,10 @@ public class Main {
 			}
 		}
 		
-		for(int i = 1; i < 3; i++)
+		for(int i = 1; i < 4; i++)
 		{
 			try {
-				mageCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/mageCrawl" + i + ".png")));
+				mageCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magecrawl" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -264,7 +264,7 @@ public class Main {
 		*/
 		
 		//get the specified texture from the arrays.
-		rogueTexture = rogueFighting[4];
+		rogueTexture = fighterMoveTextures[8];
 		
 		while(haveSplash&&isSplash); //wait for splash screen to be over
 	}
