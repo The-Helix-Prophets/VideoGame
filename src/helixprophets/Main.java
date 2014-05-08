@@ -177,8 +177,8 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
 		while(!Display.isCloseRequested()) {
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
 			if(!rogueTexture.equals(null)) {
 				rogueTexture.bind(); 
 			} else {
