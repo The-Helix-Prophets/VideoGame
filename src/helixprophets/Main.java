@@ -186,13 +186,13 @@ public class Main {
 				GL11.glBegin(GL11.GL_QUADS);
 					// Centers image with no stretch
 					GL11.glTexCoord2f(0,0);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
+					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
 					GL11.glTexCoord2f(1,0);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
+					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
 					GL11.glTexCoord2f(1,1);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
+					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
 					GL11.glTexCoord2f(0,1);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
+					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
 				GL11.glEnd();
 			}
 			Display.update();
