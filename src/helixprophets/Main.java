@@ -19,7 +19,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 
 public class Main {
-	private boolean haveSplash = false; //set to false to skip splash screen 
+	private boolean haveSplash = true; //set to false to skip splash screen 
 										//(have it up for minimum amount of time)
 	
 	private static volatile boolean isSplash = true;
@@ -142,16 +142,13 @@ public class Main {
 			
 			@Override
 			public void run() {
-				try {
-					Thread.sleep(3000);
-					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-					isSplash = false;
-					
+				int time = 3000;
+				long startTime = System.currentTimeMillis();
+				while(System.currentTimeMillis()-startTime < time) {
+					//Display.update();
+					//Display.sync(60);
 				}
+				isSplash = false;
 			}
 		}).start();
 		  
@@ -180,7 +177,8 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); 
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
+		Display.update();
 		if(!rogueTexture.equals(null)) {
 			rogueTexture.bind(); 
 		} else {
