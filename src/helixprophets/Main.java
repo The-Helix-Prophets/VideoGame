@@ -161,7 +161,7 @@ public class Main {
 		
 		//taking the first walking rogue picture and trying to put it on the screen after splash
 		try {
-			rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/roguewalkframe1.png")));	
+			rogueTexture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magewalkframe1.png")));	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
