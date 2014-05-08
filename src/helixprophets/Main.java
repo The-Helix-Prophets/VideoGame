@@ -144,10 +144,7 @@ public class Main {
 			public void run() {
 				int time = 3000;
 				long startTime = System.currentTimeMillis();
-				while(System.currentTimeMillis()-startTime < time) {
-					//Display.update();
-					//Display.sync(60);
-				}
+				while(System.currentTimeMillis()-startTime < time);
 				isSplash = false;
 			}
 		}).start();
