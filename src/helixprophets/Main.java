@@ -200,7 +200,6 @@ public class Main {
 		}
 		while(!Display.isCloseRequested()) {
 			Display.update();
-			Display.sync(60);
 		}
 		
 		
