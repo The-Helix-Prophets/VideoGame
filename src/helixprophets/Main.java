@@ -19,7 +19,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 
 public class Main {
-	private boolean haveSplash = true; //set to false to skip splash screen 
+	private boolean haveSplash = false; //set to false to skip splash screen 
 										//(have it up for minimum amount of time)
 	
 	private static volatile boolean isSplash = true;
