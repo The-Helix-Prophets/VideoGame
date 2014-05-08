@@ -178,28 +178,28 @@ public class Main {
 	 */
 	public void play() {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
-		Display.update();
-		if(!rogueTexture.equals(null)) {
-			rogueTexture.bind(); 
-		} else {
-			Color.black.bind();
-		}
-		if(!rogueTexture.equals(null)) {
-			
-			GL11.glBegin(GL11.GL_QUADS);
-				// Centers image with no stretch
-				GL11.glTexCoord2f(0,0);
-				GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
-				GL11.glTexCoord2f(1,0);
-				GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
-				GL11.glTexCoord2f(1,1);
-				GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
-				GL11.glTexCoord2f(0,1);
-				GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
-			GL11.glEnd();
-		}
 		while(!Display.isCloseRequested()) {
+			if(!rogueTexture.equals(null)) {
+				rogueTexture.bind(); 
+			} else {
+				Color.black.bind();
+			}
+			if(!rogueTexture.equals(null)) {
+				
+				GL11.glBegin(GL11.GL_QUADS);
+					// Centers image with no stretch
+					GL11.glTexCoord2f(0,0);
+					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
+					GL11.glTexCoord2f(1,0);
+					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/2));
+					GL11.glTexCoord2f(1,1);
+					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
+					GL11.glTexCoord2f(0,1);
+					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/2), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/2));
+				GL11.glEnd();
+			}
 			Display.update();
+			Display.sync(60);
 		}
 		
 		
