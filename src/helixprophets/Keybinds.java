@@ -2,86 +2,26 @@ package helixprophets;
 
 import org.lwjgl.input.Keyboard;
 
-public class Keybinds extends Thread {
-	
-	private boolean up, 
-					down, 
-					left,
-					right,
-					attack;
-	private long updateTime = 0;
-	
-	private boolean threadRun,
-					threadEnabled;
-	
-	public Keybinds(boolean start) {
-		super("Keybinds");
-		if(start)
-			startThread();
-	}
-	
-	public void startThread() {
-		setRunning(true);
-		setEnabled(true);
-		this.start();
-	}
-	
-	public void endThread() {
-		setEnabled(false);
-	}
-	
-	public void run() {
-		while(isRunning()) {
-			if(isEnabled()) {
-				while(Keyboard.next()) {
-					switch(Keyboard.getEventKey()) {
-						case Keyboard.KEY_W:
-							setUp(Keyboard.getEventKeyState());
-							break;
-						case Keyboard.KEY_A:
-							setLeft(Keyboard.getEventKeyState());
-							break;
-						case Keyboard.KEY_S:
-							setDown(Keyboard.getEventKeyState());
-							break;
-						case Keyboard.KEY_D:
-							setRight(Keyboard.getEventKeyState());
-							break;
-						case Keyboard.KEY_SPACE:
-							setAttack(Keyboard.getEventKeyState());
-							break;
-						default:
-							break;
-					}
-					setTime();
-				}
-			}
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} //Slight Speed Limiter
+public class Keybinds {
+	private static class Key {
+		public int value;
+		private Key(int value) {
+			this.value = value;
 		}
+		public static Key up = new Key(Keyboard.KEY_W);
+		public static Key down = new Key(Keyboard.KEY_S);
+		public static Key left = new Key(Keyboard.KEY_A);
+		public static Key right = new Key(Keyboard.KEY_D);
+		public static Key attack = new Key(Keyboard.KEY_SPACE);
 	}
 	
-	public synchronized boolean isEnabled() { return threadEnabled;}
-	public synchronized boolean isRunning() { return threadRun;}
+	public boolean getUp() { return getKeyState(Key.up);}
+	public boolean getDown() { return getKeyState(Key.down);}
+	public boolean getLeft() { return getKeyState(Key.left);}
+	public boolean getRight() { return getKeyState(Key.right);}
+	public boolean getAttack() { return getKeyState(Key.attack);}
 	
-	public synchronized void setEnabled(boolean state) { threadEnabled = state;}
-	public synchronized void setRunning(boolean state) { threadRun = state;}
-	
-	private synchronized void setUp(boolean state) { up = state;}
-	private synchronized void setDown(boolean state) { down = state;}
-	private synchronized void setLeft(boolean state) { left = state;}
-	private synchronized void setRight(boolean state) { right = state;}
-	private synchronized void setAttack(boolean state) { attack = state;}
-	private synchronized void setTime() {updateTime = System.currentTimeMillis();}
-	
-	public synchronized boolean getUp() { return up;}
-	public synchronized boolean getDown() { return down;}
-	public synchronized boolean getLeft() { return left;}
-	public synchronized boolean getRight() { return right;}
-	public synchronized boolean getAttack() { return attack;}
-	public synchronized long getTime() {return updateTime;}
+	public boolean getKeyState (Key key) {
+		return Keyboard.isKeyDown(key.value);
+	}
 }

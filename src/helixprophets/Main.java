@@ -21,8 +21,11 @@ import org.newdawn.slick.tiled.TiledMap;
 
 
 public class Main {
+	
 	private boolean haveSplash = true; //set to false to skip splash screen 
 										//(have it up for minimum amount of time)
+	private Keybinds keybinds;
+	
 	private static volatile boolean isSplash = true;
 	Texture splashTexture = null;
 	
@@ -42,6 +45,7 @@ public class Main {
 	
 	private Texture monsters;
 	private Texture terrain;
+	
 	
 	public static void main(String[] args) {
 		Main game = new Main();
@@ -160,7 +164,7 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
-		
+		keybinds = new Keybinds();
 		//putting the rogue move textures in the texture array
 		for(int i = 1; i < 10; i++) {
 			try {
@@ -240,7 +244,9 @@ public class Main {
 	 * Main 
 	 */
 	public void play() {
-		while(!Display.isCloseRequested()) {
+		while(!Display.isCloseRequested() && !keybinds.getAttack()) {
+			if(keybinds.getAttack())
+				System.out.println("ss");
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
 			if(!rogueTexture.equals(null)) {
 				rogueTexture.bind(); 
