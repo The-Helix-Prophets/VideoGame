@@ -9,6 +9,7 @@ public class Keybinds extends Thread {
 					left,
 					right,
 					attack;
+	private long updateTime = 0;
 	
 	private boolean threadRun,
 					threadEnabled;
@@ -52,6 +53,7 @@ public class Keybinds extends Thread {
 						default:
 							break;
 					}
+					setTime();
 				}
 			}
 			try {
@@ -74,10 +76,12 @@ public class Keybinds extends Thread {
 	private synchronized void setLeft(boolean state) { left = state;}
 	private synchronized void setRight(boolean state) { right = state;}
 	private synchronized void setAttack(boolean state) { attack = state;}
+	private synchronized void setTime() {updateTime = System.currentTimeMillis();}
 	
 	public synchronized boolean getUp() { return up;}
 	public synchronized boolean getDown() { return down;}
 	public synchronized boolean getLeft() { return left;}
 	public synchronized boolean getRight() { return right;}
 	public synchronized boolean getAttack() { return attack;}
+	public synchronized long getTime() {return updateTime;}
 }
