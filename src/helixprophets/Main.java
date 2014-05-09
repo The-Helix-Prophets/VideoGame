@@ -40,6 +40,7 @@ public class Main {
 	private Texture[] rogueCrawling = new Texture[9];
 	
 	Texture rogueTexture;
+	Texture mageTexture;
 	
 	private Texture monsters;
 	private Texture terrain;
@@ -267,6 +268,7 @@ public class Main {
 		
 		//get the specified texture from the arrays.
 		rogueTexture = fighterMoveTextures[8];
+		rogueTexture= mageMoveTextures[0];
 		
 		while(haveSplash&&isSplash); //wait for splash screen to be over
 	}
@@ -276,7 +278,7 @@ public class Main {
 	 */
 	public void play() {
 		while(!Display.isCloseRequested()) {
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
+			/*GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); 
 			if(!rogueTexture.equals(null)) {
 				rogueTexture.bind(); 
 			} else {
@@ -285,23 +287,35 @@ public class Main {
 			if(!rogueTexture.equals(null)) {
 				
 				GL11.glBegin(GL11.GL_QUADS);
-					// Centers image with no stretch
-					GL11.glTexCoord2f(0,0);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(1,0);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(1,1);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(0,1);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
+				center(rogueTexture);	
+				GL11.glEnd();
+			}
+			Display.update();
+			Display.sync(60);*/
+			
+			for(int x=0; x<8; x++)
+			{
+				mageTexture= mageMoveTextures[x];
+		
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+			if(!mageTexture.equals(null))
+				mageTexture.bind();
+			else {Color.black.bind();}
+			if(!mageTexture.equals(null))
+			{
+				GL11.glBegin(GL11.GL_QUADS);			
+				center(mageTexture);
 				GL11.glEnd();
 			}
 			Display.update();
 			Display.sync(60);
+			delay(150);
+			}
+			
 		}
 		
-		
-		/*Mage mage = new Mage(null, null, null, 5, 10, 7);
+		/*
+		Mage mage = new Mage(null, null, null, 5, 10, 7);
 		while(!(Keyboard.getEventKey() == Keyboard.KEY_Q))
 		{
 		mage.displayMage();
@@ -318,5 +332,29 @@ public class Main {
 	public void close() {
 		//Save state maybe?????
 		Display.destroy();
+	}
+	
+	//Centers image with no stretch
+	public void center(Texture t)
+	{
+		GL11.glTexCoord2f(0,0);
+		GL11.glVertex2f((Display.getWidth()/2)-(t.getTextureWidth()/8), (Display.getHeight()/2)-(t.getTextureHeight()/8));
+		GL11.glTexCoord2f(1,0);
+		GL11.glVertex2f((Display.getWidth()/2)+(t.getTextureWidth()/8), (Display.getHeight()/2)-(t.getTextureHeight()/8));
+		GL11.glTexCoord2f(1,1);
+		GL11.glVertex2f((Display.getWidth()/2)+(t.getTextureWidth()/8), (Display.getHeight()/2)+(t.getTextureHeight()/8));
+		GL11.glTexCoord2f(0,1);
+		GL11.glVertex2f((Display.getWidth()/2)-(t.getTextureWidth()/8), (Display.getHeight()/2)+(t.getTextureHeight()/8));
+	}
+	
+	
+	
+	public void delay(int milliseconds)
+	{
+		try {
+		    Thread.sleep(milliseconds);
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
 	}
 }
