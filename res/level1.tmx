@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="10" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="cloudtile" tilewidth="64" tileheight="64">
+  <image source="Users/Absol_000/Pictures/Summer 2013/textures/cloudtile.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="2" name="cloudtile1" tilewidth="64" tileheight="64">
+  <image source="Users/Absol_000/Pictures/Summer 2013/textures/cloudtile1.png" width="192" height="512"/>
+ </tileset>
+ <layer name="Background" width="50" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+NhYGDgoSLmHiBMTT8MNn/wATE/EAuQ6O7B5g9BIBYCYmEi/UGu+6kZl7RIT8SqpWa6BOnlAGJOIOYiw2xq5y9qxS09MSH7SUmH1LKTknAmN73SKj5olU+JyU/0SDu0TOMwvQAffpuB0AcAAA==
+  </data>
+ </layer>
+ <layer name="Foreground" width="50" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAVDFfABMT8QCwy0QygEgkAsBMTCA+0QKgFeEtWzAjEbEmanuosGFogAsSgQi6GxBxqghzss7LlxqBfHgckBhMKEVmHGw4DbH7jsROcjswmFCT67KPUXLrOpiUm1a6D9AQCRs2tx0AcAAA==
+  </data>
+ </layer>
+ <objectgroup name="ijiji" width="50" height="10">
+  <object x="1" y="449" width="382" height="222"/>
+  <object x="511" y="449" width="384" height="245"/>
+  <object x="896" y="510" width="255" height="213"/>
+  <object x="1233" y="384" width="348" height="50"/>
+  <object x="1618" y="255" width="280" height="46"/>
+  <object x="1984" y="319" width="384" height="438"/>
+  <object x="2367" y="447" width="1080" height="238"/>
+ </objectgroup>
+</map>
