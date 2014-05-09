@@ -23,7 +23,6 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Main {
 	private boolean haveSplash = true; //set to false to skip splash screen 
 										//(have it up for minimum amount of time)
-	
 	private static volatile boolean isSplash = true;
 	Texture splashTexture = null;
 	
@@ -161,28 +160,23 @@ public class Main {
 	 * Initializes Game Setup
 	 */
 	public void open() {
-	
+		
 		//putting the rogue move textures in the texture array
-		for(int i = 1; i < 10; i++)
-		{
+		for(int i = 1; i < 10; i++) {
 			try {
 				rogueMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/roguewalkframe" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		for(int i = 1; i < 9; i++)
-		{
+		for(int i = 1; i < 9; i++) {
 			try {
 				rogueFighting[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/roguefightframe" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		for(int i = 1; i < 4; i++)
-		{
+		for(int i = 1; i < 4; i++) {
 			try {
 				rogueCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/rogueCrawl" + i + ".png")));
 			} catch (IOException e) {
@@ -191,27 +185,21 @@ public class Main {
 		}
 		
 		//putting the fighter move textures in the texture array
-		
-		for(int i = 1; i < 4; i++)
-		{
+		for(int i = 1; i < 4; i++) {
 			try {
 				fighterFighting[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightfightframe" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		for(int i = 1; i < 10; i++)
-		{
+		for(int i = 1; i < 10; i++) {
 			try {
 				fighterMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightwalkframe" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		for(int i = 1; i < 4; i++)
-		{
+		for(int i = 1; i < 4; i++) {
 			try {
 				fighterCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightcrawl" + i + ".png")));
 			} catch (IOException e) {
@@ -219,51 +207,28 @@ public class Main {
 			}
 		}
 		
-		
-		
-		
-	//and finally, putting the mage textures in its texture array
-		
-		for(int i = 1; i < 10; i++)
-		{
+		//and finally, putting the mage textures in its texture array
+		for(int i = 1; i < 10; i++) {
 			try {
 				mageFightTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magefight" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		for(int i = 1; i < 10; i++)
-		{
+		for(int i = 1; i < 10; i++) {
 			try {
 				mageMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magewalkframe" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		for(int i = 1; i < 4; i++)
-		{
+		for(int i = 1; i < 4; i++) {
 			try {
 				mageCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magecrawl" + i + ".png")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-		
-		
-		
-		//we have the array of textures, try-catch no longer needed.
-		/*try {
-			TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magewalkframe1.png")));	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		
 		//get the specified texture from the arrays.
 		rogueTexture = fighterMoveTextures[8];
@@ -300,13 +265,6 @@ public class Main {
 			Display.sync(60);
 		}
 		
-		
-		/*Mage mage = new Mage(null, null, null, 5, 10, 7);
-		while(!(Keyboard.getEventKey() == Keyboard.KEY_Q))
-		{
-		mage.displayMage();
-		}
-		*/
 		//Poll Keyboard
 		//Update Positions
 		//Process attacks, map position changes, ect
