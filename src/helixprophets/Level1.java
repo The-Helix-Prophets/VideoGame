@@ -183,7 +183,6 @@ public class Level1 extends BasicGameState {
 
 		Level1.render(0,0,0);
 		Level1.render(0,0,1);
-<<<<<<< HEAD
 		
 		fighterMove.draw();
 		fighterMoveFlipped.draw(300,0);
@@ -202,23 +201,6 @@ public class Level1 extends BasicGameState {
 //		GL11.glEnd();
 		
 
-=======
-				rogueTexture.bind(); 
-				if(keybinds.getUp()) {
-					
-				}
-				GL11.glBegin(GL11.GL_QUADS);
-					// Centers image with no stretch
-					GL11.glTexCoord2f(0,0);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(1,0);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(1,1);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(0,1);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
-				GL11.glEnd();
->>>>>>> b5f2dcd5233a2cb1ad6c3c6bcbead3812de1e861
 			//Display.update();
 			//Display.sync(60);
 		}
