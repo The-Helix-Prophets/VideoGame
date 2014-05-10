@@ -41,6 +41,8 @@ public class Level1 extends BasicGameState {
 	private Texture[] rogueFighting = new Texture[9];
 	private Texture[] rogueCrawling = new Texture[9];
 	
+	
+	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
@@ -143,7 +145,9 @@ public class Level1 extends BasicGameState {
 		Level1.render(0,0,0);
 		Level1.render(0,0,1);
 				rogueTexture.bind(); 
-				
+				if(keybinds.getUp()) {
+					
+				}
 				GL11.glBegin(GL11.GL_QUADS);
 					// Centers image with no stretch
 					GL11.glTexCoord2f(0,0);
