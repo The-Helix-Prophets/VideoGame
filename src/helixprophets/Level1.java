@@ -1,5 +1,7 @@
 package helixprophets;
 
+import helixprophets.beings.classes.Fighter;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,9 +9,11 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.opengl.Texture;
@@ -27,21 +31,56 @@ public class Level1 extends BasicGameState {
 	private ArrayList<Rectangle> blocks;
 	private int tileSize = 64;
 	
+	
 	private Keybinds keybinds;
-	Texture rogueTexture;
-	private Texture[] mageMoveTextures = new Texture[9];
-	private Texture[] mageFightTextures = new Texture[9];
-	private Texture[] mageCrawling = new Texture[9];
+	Image rogueImage;
+	private Image[] mageMoveImages = new Image[9];
+	private Image[] mageFightImages = new Image[9];
+	private Image[] mageCrawling = new Image[3];
+	private Image[] mageMoveImagesFlipped = new Image[9];
+	private Image[] mageFightImagesFlipped = new Image[9];
+	private Image[] mageCrawlingFlipped = new Image[3];
 	
-	private Texture[] fighterMoveTextures = new Texture[9];
-	private Texture[] fighterFighting = new Texture[9];
-	private Texture[] fighterCrawling = new Texture[9];
+	private Image[] fighterMoveImages = new Image[9];
+	private Image[] fighterMoveImagesFlipped = new Image[9];
+	private Image[] fighterFighting = new Image[3];
+	private Image[] fighterFightingFlipped = new Image[3];
+	private Image[] fighterCrawling = new Image[3];
+	private Image[] fighterCrawlingFlipped = new Image[3];
 	
-	private Texture[] rogueMoveTextures = new Texture[9];
-	private Texture[] rogueFighting = new Texture[9];
-	private Texture[] rogueCrawling = new Texture[9];
+	private Image[] rogueMoveImages = new Image[9];
+	private Image[] rogueFighting = new Image[8];
+	private Image[] rogueCrawling = new Image[3];
+	private Image[] rogueMoveImagesFlipped = new Image[9];
+	private Image[] rogueFightingFlipped = new Image[8];
+	private Image[] rogueCrawlingFlipped = new Image[3];
+	
+	private Animation fighterMove = new Animation(fighterMoveImages, 100);
+	private Animation fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
+	private Animation fighterFight;
+	private Animation fighterFightFlipped;
+	private Animation fighterCrawl;
+	private Animation fighterCrawlFlipped;
+	
+	private Animation mageMove;
+	private Animation mageMoveFlipped;
+	private Animation mageFight;
+	private Animation mageFightFlipped;
+	private Animation mageCrawl;
+	private Animation mageCrawlFlipped;
+	
+	private Animation rogueMove;
+	private Animation rogueMoveFlipped;
+	private Animation rogueFight;
+	private Animation rogueFightFlipped;
+	private Animation rogueCrawl;
+	private Animation rogueCrawlFlipped;
+	
+	
+	
 	
 	@Override
+	//this is where we set everything up 
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		Level1 = new TiledMap("res/level1.tmx","res");
@@ -64,75 +103,75 @@ public class Level1 extends BasicGameState {
 		keybinds = new Keybinds();
 		//putting the rogue move textures in the texture array
 		for(int i = 1; i < 10; i++) {
-			try {
-				rogueMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/roguewalkframe" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				rogueMoveImages[i-1] = new Image("res/roguewalkframe" + i + ".png");
+				rogueMoveImages[i-1] = rogueMoveImages[i-1].getScaledCopy((float) .5);
+				rogueMoveImagesFlipped[i-1] = rogueMoveImages[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		for(int i = 1; i < 9; i++) {
-			try {
-				rogueFighting[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/roguefightframe" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				rogueFighting[i-1] = new Image("res/roguefightframe" + i + ".png");
+				rogueFighting[i-1] = rogueFighting[i-1].getScaledCopy((float) .5);
+				rogueFightingFlipped[i-1] = rogueFighting[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		for(int i = 1; i < 4; i++) {
-			try {
-				rogueCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/rogueCrawl" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				rogueCrawling[i-1] = new Image("res/rogueCrawl" + i + ".png");
+				rogueCrawling[i-1] = rogueCrawling[i-1].getScaledCopy((float) .5);
+				rogueCrawlingFlipped[i-1] = rogueCrawling[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		
 		//putting the fighter move textures in the texture array
 		for(int i = 1; i < 4; i++) {
-			try {
-				fighterFighting[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightfightframe" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				fighterFighting[i-1] = new Image("res/fightfightframe" + i + ".png");
+				fighterFighting[i-1] = fighterFighting[i-1].getScaledCopy((float) .5);
+				fighterFightingFlipped[i-1] = fighterFighting[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		for(int i = 1; i < 10; i++) {
-			try {
-				fighterMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightwalkframe" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				fighterMoveImages[i-1] = new Image("res/fightwalkframe" + i + ".png");
+				fighterMoveImages[i-1] = fighterMoveImages[i-1].getScaledCopy((float) .5);
+				fighterMoveImagesFlipped[i-1] = fighterMoveImages[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		for(int i = 1; i < 4; i++) {
-			try {
-				fighterCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/fightcrawl" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				fighterCrawling[i-1] = new Image("res/fightcrawl" + i + ".png");
+				fighterCrawling[i-1] = fighterCrawling[i-1].getScaledCopy((float) .5);
+				fighterCrawlingFlipped[i-1] = fighterCrawling[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		
 		//and finally, putting the mage textures in its texture array
 		for(int i = 1; i < 10; i++) {
-			try {
-				mageFightTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magefight" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			 {
+				mageFightImages[i-1] = new Image("res/magefight" + i + ".png");
+				mageFightImages[i-1] = mageFightImages[i-1].getScaledCopy((float) .5);
+				mageFightImagesFlipped[i-1] = mageFightImages[i-1].getFlippedCopy(true, false);
+			} 
 		}
 		for(int i = 1; i < 10; i++) {
-			try {
-				mageMoveTextures[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magewalkframe" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+			 {
+				mageMoveImages[i-1] = new Image("res/magewalkframe" + i + ".png");
+				mageMoveImages[i-1] = mageMoveImages[i-1].getScaledCopy((float) .5);
+				mageMoveImagesFlipped[i-1] = mageMoveImages[i-1].getFlippedCopy(true, false);
+			} }
 		for(int i = 1; i < 4; i++) {
-			try {
-				mageCrawling[i-1] = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/magecrawl" + i + ".png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			{
+				mageCrawling[i-1] = new Image("res/magecrawl" + i + ".png");
+				mageCrawling[i-1] = mageCrawling[i-1].getScaledCopy((float) .5);
+				mageCrawlingFlipped[i-1] = mageCrawling[i-1].getFlippedCopy(true, false);
+			} 
 		}
-		
 		//get the specified texture from the arrays.
-		rogueTexture = fighterMoveTextures[8];
+		rogueImage = fighterMoveImages[8];
+		fighterMove = new Animation(fighterMoveImages, 100);
+		fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
 		
 	}
 //The render method displays things on the screen.
@@ -142,19 +181,24 @@ public class Level1 extends BasicGameState {
 
 		Level1.render(0,0,0);
 		Level1.render(0,0,1);
-				rogueTexture.bind(); 
-				
-				GL11.glBegin(GL11.GL_QUADS);
-					// Centers image with no stretch
-					GL11.glTexCoord2f(0,0);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(1,0);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)-(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(1,1);
-					GL11.glVertex2f((Display.getWidth()/2)+(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
-					GL11.glTexCoord2f(0,1);
-					GL11.glVertex2f((Display.getWidth()/2)-(rogueTexture.getTextureWidth()/8), (Display.getHeight()/2)+(rogueTexture.getTextureHeight()/8));
-				GL11.glEnd();
+		
+		fighterMove.draw();
+		fighterMoveFlipped.draw(300,0);
+		
+//		
+//		GL11.glBegin(GL11.GL_QUADS);
+//			// Centers image with no stretch
+//			GL11.glTexCoord2f(0,0);
+//			GL11.glVertex2f((Display.getWidth()/2)-(rogueImage.getImageWidth()/8), (Display.getHeight()/2)-(rogueImage.getImageHeight()/8));
+//			GL11.glTexCoord2f(1,0);
+//			GL11.glVertex2f((Display.getWidth()/2)+(rogueImage.getImageWidth()/8), (Display.getHeight()/2)-(rogueImage.getImageHeight()/8));
+//			GL11.glTexCoord2f(1,1);
+//			GL11.glVertex2f((Display.getWidth()/2)+(rogueImage.getImageWidth()/8), (Display.getHeight()/2)+(rogueImage.getImageHeight()/8));
+//			GL11.glTexCoord2f(0,1);
+//			GL11.glVertex2f((Display.getWidth()/2)-(rogueImage.getImageWidth()/8), (Display.getHeight()/2)+(rogueImage.getImageHeight()/8));
+//		GL11.glEnd();
+		
+
 			//Display.update();
 			//Display.sync(60);
 		}
