@@ -3,6 +3,7 @@ package helixprophets;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -10,15 +11,22 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.Layer;
 
 public class Level1 extends BasicGameState {
 
 	private TiledMap Level1;
+	
+	private boolean blocked[][];
+	private ArrayList<Rectangle> blocks;
+	private int tileSize = 64;
+	
 	private Keybinds keybinds;
 	Texture rogueTexture;
 	private Texture[] mageMoveTextures = new Texture[9];
@@ -37,6 +45,22 @@ public class Level1 extends BasicGameState {
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		Level1 = new TiledMap("res/level1.tmx","res");
+		
+		//this creates our collision blocks for our foreground layer of the tilemap
+		blocked = new boolean[Level1.getWidth()][Level1.getHeight()];
+		int layer = 1; 
+		for(int i = 0; i < Level1.getWidth(); i++) {
+		    for(int j = 0; j < Level1.getHeight(); j++) {
+		        int tileID = Level1.getTileId(i, j, layer);
+		        String value = Level1.getTileProperty(tileID, "blocked", "false");
+		        if(value.equals("true")) {
+		            blocked[i][j] = true;
+		            blocks.add(new Rectangle((float)i * tileSize, (float)j * tileSize, tileSize, tileSize));
+		        }
+		    }
+		}
+		
+		
 		keybinds = new Keybinds();
 		//putting the rogue move textures in the texture array
 		for(int i = 1; i < 10; i++) {
@@ -111,13 +135,13 @@ public class Level1 extends BasicGameState {
 		rogueTexture = fighterMoveTextures[8];
 		
 	}
-
+//The render method displays things on the screen.
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
-		
-		Level1.render(0,0);
-		
+
+		Level1.render(0,0,0);
+		Level1.render(0,0,1);
 				rogueTexture.bind(); 
 				
 				GL11.glBegin(GL11.GL_QUADS);
@@ -135,14 +159,14 @@ public class Level1 extends BasicGameState {
 			//Display.sync(60);
 		}
 		
-
+//The update is where the action occurs, I believe.
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
 		// TODO Auto-generated method stub
 		
 	}
-
+//This is a simple method that gives this state an ID.
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
