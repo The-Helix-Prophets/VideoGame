@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Animation;
@@ -30,6 +31,13 @@ public class Level1 extends BasicGameState {
 	private boolean blocked[][];
 	private ArrayList<Rectangle> blocks;
 	private int tileSize = 64;
+	
+	private boolean direction = true;
+	private int x = 64;
+	private int y = 224;
+	private int camx = 0;
+	private int camy = 0;
+	
 	
 	
 	private Keybinds keybinds;
@@ -55,8 +63,8 @@ public class Level1 extends BasicGameState {
 	private Image[] rogueFightingFlipped = new Image[8];
 	private Image[] rogueCrawlingFlipped = new Image[3];
 	
-	private Animation fighterMove = new Animation(fighterMoveImages, 100);
-	private Animation fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
+	private Animation fighterMove;
+	private Animation fighterMoveFlipped;
 	private Animation fighterFight;
 	private Animation fighterFightFlipped;
 	private Animation fighterCrawl;
@@ -75,7 +83,6 @@ public class Level1 extends BasicGameState {
 	private Animation rogueFightFlipped;
 	private Animation rogueCrawl;
 	private Animation rogueCrawlFlipped;
-	
 	
 	
 	
@@ -174,6 +181,26 @@ public class Level1 extends BasicGameState {
 		rogueImage = fighterMoveImages[8];
 		fighterMove = new Animation(fighterMoveImages, 100);
 		fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
+		fighterMove = new Animation(fighterMoveImages, 100);
+		  fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
+		  fighterFight = new Animation(fighterFighting, 100);
+		  fighterFightFlipped = new Animation(fighterFightingFlipped, 100);
+		  fighterCrawl = new Animation(fighterCrawling, 100);
+		  fighterCrawlFlipped = new Animation(fighterCrawlingFlipped, 100);
+		
+		  mageMove = new Animation(mageMoveImages, 100);
+		  mageMoveFlipped = new Animation(mageMoveImagesFlipped, 100);
+		  mageFight = new Animation(mageFightImages, 100);
+		  mageFightFlipped = new Animation(mageFightImagesFlipped, 100);
+		  mageCrawl = new Animation(mageCrawling, 100);
+		  mageCrawlFlipped = new Animation(mageCrawlingFlipped, 100);
+		
+		  rogueMove = new Animation(rogueMoveImages, 100);
+		  rogueMoveFlipped = new Animation(rogueMoveImages, 100);
+		  rogueFight = new Animation(rogueFighting, 100);
+		  rogueFightFlipped = new Animation(rogueFightingFlipped, 100);
+		  rogueCrawl = new Animation(rogueCrawling, 100);
+		  rogueCrawlFlipped = new Animation(rogueCrawlingFlipped, 100);
 		
 	}
 //The render method displays things on the screen.
@@ -181,11 +208,36 @@ public class Level1 extends BasicGameState {
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
 
-		Level1.render(0,0,0);
-		Level1.render(0,0,1);
+		Level1.render(camx,camy,0);
+		Level1.render(camx,camy,1);
 		
-		fighterMove.draw();
-		fighterMoveFlipped.draw(300,0);
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true){
+			fighterMoveFlipped.draw(x,y);
+			camx--;
+			direction=true;
+		}
+			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false){
+				fighterMoveImagesFlipped[1].draw(x,y);}
+			if(direction==false && keybinds.getRawKeyState(Keyboard.KEY_A)==false  && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false){
+				fighterMoveImages[1].draw(x,y);
+			}
+	
+		
+		if(keybinds.getRawKeyState(Keyboard.KEY_SPACE)==true){
+			if(direction==true){
+				fighterFightFlipped.draw(x,y);
+			}
+			else{
+				fighterFight.draw(x,y);
+			}
+		}
+		
+		
+		if(keybinds.getRawKeyState(Keyboard.KEY_A)==true){
+			fighterMove.draw(x,y);
+			camx++;
+			direction=false;
+		}
 		
 //		
 //		GL11.glBegin(GL11.GL_QUADS);

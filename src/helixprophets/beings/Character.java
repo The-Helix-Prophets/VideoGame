@@ -1,6 +1,9 @@
 package helixprophets.beings;
 
 import helixprophets.Coords;
+import helixprophets.beings.classes.Fighter;
+import helixprophets.beings.classes.Mage;
+import helixprophets.beings.classes.Rogue;
 import helixprophets.items.Inventory;
 
 import org.newdawn.slick.Animation;
@@ -84,9 +87,6 @@ public abstract class Character {
 		this.crawlSpeed = crawlSpeed;
 	}
 	
-	public void init(GameContainer arg0, StateBasedGame arg1){
-		
-	}
 	/**
 	 * Handles character jump textures and movement
 	 * @param threaded if you want the jump to operate concurrently to calling method
@@ -123,6 +123,7 @@ public abstract class Character {
 	}
 	private void crawl() {
 		
+			
 	}
 	
 	/**
