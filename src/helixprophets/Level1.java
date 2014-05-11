@@ -211,19 +211,19 @@ public class Level1 extends BasicGameState {
 		Level1.render(camx,camy,0);
 		Level1.render(camx,camy,1);
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true){
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 			fighterMoveFlipped.draw(x,y);
 			camx--;
 			direction=true;
 		}
-			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false){
+			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 				fighterMoveImagesFlipped[1].draw(x,y);}
-			if(direction==false && keybinds.getRawKeyState(Keyboard.KEY_A)==false  && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false){
+			if(direction==false && keybinds.getRawKeyState(Keyboard.KEY_A)==false  && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 				fighterMoveImages[1].draw(x,y);
 			}
 	
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_SPACE)==true){
+		if(keybinds.getRawKeyState(Keyboard.KEY_SPACE)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 			if(direction==true){
 				fighterFightFlipped.draw(x,y);
 			}
@@ -233,10 +233,31 @@ public class Level1 extends BasicGameState {
 		}
 		
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_A)==true){
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 			fighterMove.draw(x,y);
 			camx++;
 			direction=false;
+		}
+		
+		if(keybinds.getRawKeyState(Keyboard.KEY_S)==true){
+			if(keybinds.getRawKeyState(Keyboard.KEY_A)==false && keybinds.getRawKeyState(Keyboard.KEY_D)==false){
+				if(direction==true){
+					fighterCrawlingFlipped[1].draw(x,y);
+					}
+				else{fighterCrawling[1].draw(x,y);
+				
+				}
+			}
+			if(keybinds.getRawKeyState(Keyboard.KEY_A)==true){
+				fighterCrawl.draw(x,y);
+				camx++;
+				direction = false;
+			}
+			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true){
+				fighterCrawlFlipped.draw(x,y);
+				camx--;
+				direction = true;
+		}
 		}
 		
 //		
