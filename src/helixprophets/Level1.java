@@ -260,6 +260,14 @@ public class Level1 extends BasicGameState {
 		}
 		}
 		
+		if(keybinds.getRawKeyState(Keyboard.KEY_W)==true){
+
+			y--;
+			fighterMoveFlipped.draw(x,y);
+
+		}else /*if(blocked[x/64][y/64]==false)*/{ y++; fighterMoveFlipped.draw(x,y);}
+		
+		
 //		
 //		GL11.glBegin(GL11.GL_QUADS);
 //			// Centers image with no stretch
@@ -283,6 +291,8 @@ public class Level1 extends BasicGameState {
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
 		// TODO Auto-generated method stub
+		
+		
 		
 	}
 //This is a simple method that gives this state an ID.
