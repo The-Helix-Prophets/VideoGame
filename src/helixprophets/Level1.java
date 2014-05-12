@@ -35,7 +35,7 @@ public class Level1 extends BasicGameState {
 	private int x = 128;
 	private int y = 100;
 	private int camx = 0;
-	private int camy = -2*64;
+	private int camy = -2*50;
 	
 	
 	
