@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="13" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="52" height="13" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="cloudtile" tilewidth="64" tileheight="64">
   <image source="cloudtile1.png" width="192" height="512"/>
   <tile id="3">
@@ -48,26 +48,26 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Background" width="50" height="13">
+ <layer name="Background" width="52" height="13">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+NiYGDgGsWDBvPQEfMCMR8Q8w8ye0hVLwDEgkAsRGO/k2oPOe4i1Z3UsIMe8URNdw7GeBpKGBcYaHcNpD8ImUVNu4i1m5qAVLsGkz9YkNiwepJYQGydilwHUxOIDRMMANlHs2IoCgAA
+   H4sIAAAAAAAACxNjYGDgGiZYDIoH2h3U9g8PHTEvEPMBMT8NzMbmH1LtI1W9ABALArEQDcIAm39ItY8c95HqXmLtICW90TLeqBEmpPpnIOKNlv6hFcYFRv2D8A8hM6lpJ7H+IQdQ6h9c6geTf1iQ2LB6l1gAUkuMH5DrdGoCsWGIAWabzNCQCgAA
   </data>
  </layer>
- <layer name="Foreground" width="50" height="13">
+ <layer name="Foreground" width="52" height="13">
   <properties>
    <property name="" value=""/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2QSwrAIAxEXbS2xaWt9v4n7WwECSYu2tAgCg/ibyaZ4JwLk8lkeDawg8NAL5ZZwFrhDfT0JRGc4CL1333R3HvZJ5DBTWqNTDQz4+bgPKNw18tE8no7F6dd6tQ4b5EFrdqL/qGaWWEOzpe+KftR1gNZrFNKKAoAAA==
+   H4sIAAAAAAAAC+2R3QqAIAxGd9EvXVra+z9p381AhtPCIhUHB1b+zLMREW2NwPH3O7pP96kR32cGC1gLeFcN8xnA6DFV7qNhwA4OkZfiI+eQmoUFDpwiz/FJ9ejNHt710WqayBpHqkexmrl+2t2c28D/EO6hjzwr73Yf+Gh15R7+bjEuOLuM05AKAAA=
   </data>
  </layer>
- <objectgroup name="ijiji" width="50" height="13">
-  <object x="1" y="577" width="382" height="222"/>
-  <object x="511" y="577" width="384" height="245"/>
-  <object x="896" y="638" width="255" height="213"/>
-  <object x="1233" y="512" width="348" height="50"/>
-  <object x="1618" y="383" width="280" height="46"/>
-  <object x="1984" y="447" width="384" height="438"/>
-  <object x="2367" y="575" width="1080" height="238"/>
+ <objectgroup name="ijiji" width="52" height="13">
+  <object x="65" y="577" width="382" height="222"/>
+  <object x="575" y="577" width="384" height="245"/>
+  <object x="960" y="638" width="255" height="213"/>
+  <object x="1297" y="512" width="348" height="50"/>
+  <object x="1682" y="383" width="280" height="46"/>
+  <object x="2048" y="447" width="384" height="438"/>
+  <object x="2431" y="575" width="1080" height="238"/>
  </objectgroup>
 </map>
