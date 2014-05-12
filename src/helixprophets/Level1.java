@@ -34,9 +34,9 @@ public class Level1 extends BasicGameState {
 	
 	private boolean direction = true;
 	private int x = 64;
-	private int y = 224;
+	private int y = 288;
 	private int camx = 0;
-	private int camy = 0;
+	private int camy = -2*64;
 	
 	
 	
@@ -208,7 +208,6 @@ public class Level1 extends BasicGameState {
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
 
-		Level1.render(camx,camy,0);
 		Level1.render(camx,camy,1);
 		
 		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
@@ -263,9 +262,9 @@ public class Level1 extends BasicGameState {
 		if(keybinds.getRawKeyState(Keyboard.KEY_W)==true){
 
 			y--;
-			fighterMoveFlipped.draw(x,y);
 
-		}else /*if(blocked[x/64][y/64]==false)*/{ y++; fighterMoveFlipped.draw(x,y);}
+		}else if(blocked[x/64][(y+135)/64]==false){
+			y++; }
 		
 		
 //		

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="10" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="50" height="12" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="cloudtile" tilewidth="64" tileheight="64">
   <image source="cloudtile1.png" width="192" height="512"/>
  </tileset>
- <layer name="Background" width="50" height="10">
+ <layer name="Background" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC9WROQ4AIAgEqY33/x8rha2RNYi4yXSEWUIkomhEYjJTnHnQ+co0pl++HfWc9EJ7ajgs/qTZ0+OffmKV171e3rHbpemSujWDurzeESbIvKR7IHy3JANYf1vD0AcAAA==
+   H4sIAAAAAAAAC+NiYGDgGsWDBvPQEfMCMR8Q8w8ye0hVLwDEgkAsRGO/k2oPOe4i1Z3UsIMe8URNdw7GeBpKGBcYaHcNpD8ImUVNu4i1m5qAVLsGqz9g9SQp6olxO3IdTE0AAH58V7RgCQAA
   </data>
  </layer>
- <layer name="Foreground" width="50" height="10">
+ <layer name="Foreground" width="50" height="12">
+  <properties>
+   <property name="blocked" value="true"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjgDaAHYg5gJhzoB0yyAELELMiYbaBdQ7VgTAQiwCxKBp7oAF6uBMKezEgFgdiCTQ2OYBQmNAyzHD5A5edwnjkCIUJPrso9Rcus2FsMSzi2LA4HrOQ7ULXg26mOA38gctedDUwPgDmMg0W0AcAAA==
+   H4sIAAAAAAAAC2NgGAWjYBSMBMAOxBxAzDnQDhnkgAWIWZEw28A6h+pAGIhFgFgUjT3QAD3cCYW9GBCLA7EEGpscQChMaBlmuPyBy05hPHKEwgSfXZT6C5fZMLYYFnFsWByPWch2oetBN1OcBv7AZS+6GhgfAIh1j4lgCQAA
   </data>
  </layer>
- <objectgroup name="ijiji" width="50" height="10">
-  <object x="1" y="449" width="382" height="222"/>
-  <object x="511" y="449" width="384" height="245"/>
-  <object x="896" y="510" width="255" height="213"/>
-  <object x="1233" y="384" width="348" height="50"/>
-  <object x="1618" y="255" width="280" height="46"/>
-  <object x="1984" y="319" width="384" height="438"/>
-  <object x="2367" y="447" width="1080" height="238"/>
+ <objectgroup name="ijiji" width="50" height="12">
+  <object x="1" y="577" width="382" height="222"/>
+  <object x="511" y="577" width="384" height="245"/>
+  <object x="896" y="638" width="255" height="213"/>
+  <object x="1233" y="512" width="348" height="50"/>
+  <object x="1618" y="383" width="280" height="46"/>
+  <object x="1984" y="447" width="384" height="438"/>
+  <object x="2367" y="575" width="1080" height="238"/>
  </objectgroup>
 </map>
