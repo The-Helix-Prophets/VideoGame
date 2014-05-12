@@ -29,12 +29,11 @@ public class Level1 extends BasicGameState {
 	private TiledMap Level1;
 	
 	private boolean blocked[][];
-	private ArrayList<Rectangle> blocks;
 	private int tileSize = 64;
 	
 	private boolean direction = true;
-	private int x = 64;
-	private int y = 288;
+	private int x = 128;
+	private int y = 100;
 	private int camx = 0;
 	private int camy = -2*64;
 	
@@ -87,7 +86,6 @@ public class Level1 extends BasicGameState {
 	
 	
 	
-	
 	@Override
 	//this is where we set everything up 
 	public void init(GameContainer arg0, StateBasedGame arg1)
@@ -103,7 +101,6 @@ public class Level1 extends BasicGameState {
 		        String value = Level1.getTileProperty(tileID, "blocked", "false");
 		        if(value.equals("true")) {
 		            blocked[i][j] = true;
-		            blocks.add(new Rectangle((float)i * tileSize, (float)j * tileSize, tileSize, tileSize));
 		        }
 		    }
 		}
@@ -207,8 +204,9 @@ public class Level1 extends BasicGameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
-
+		Level1.render(camx,camy,0);
 		Level1.render(camx,camy,1);
+//		arg2.drawString("Result: " + blocked[-(camx/64)][(y)/64] + camx + " " + y, 0,0);
 		
 		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 			fighterMoveFlipped.draw(x,y);
@@ -262,8 +260,8 @@ public class Level1 extends BasicGameState {
 		if(keybinds.getRawKeyState(Keyboard.KEY_W)==true){
 
 			y--;
-
-		}else if(blocked[x/64][(y+135)/64]==false){
+		}
+		else if(blocked[-((camx-129)/64)][(y+300)/64]==false){
 			y++; }
 		
 		

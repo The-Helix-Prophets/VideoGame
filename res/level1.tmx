@@ -2,6 +2,51 @@
 <map version="1.0" orientation="orthogonal" width="50" height="12" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="cloudtile" tilewidth="64" tileheight="64">
   <image source="cloudtile1.png" width="192" height="512"/>
+  <tile id="3">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Background" width="50" height="12">
   <data encoding="base64" compression="gzip">
@@ -10,10 +55,10 @@
  </layer>
  <layer name="Foreground" width="50" height="12">
   <properties>
-   <property name="blocked" value="true"/>
+   <property name="" value=""/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMBMAOxBxAzDnQDhnkgAWIWZEw28A6h+pAGIhFgFgUjT3QAD3cCYW9GBCLA7EEGpscQChMaBlmuPyBy05hPHKEwgSfXZT6C5fZMLYYFnFsWByPWch2oetBN1OcBv7AZS+6GhgfAIh1j4lgCQAA
+   H4sIAAAAAAAAC+2QvQrAIAyEHfqLo632/Z+0twhymDi0oVIcPohR75Lzzjk/GAx+zwo2sHcwS89MYC5YOpjpTQI4wEn113Nx7q3sI0jgotoiE8vMpD0kz6DctTLRvJ7uJWnnOlb6NZKiVXrxH9ZMBntIvvwmn2+iU5SIYAkAAA==
   </data>
  </layer>
  <objectgroup name="ijiji" width="50" height="12">
