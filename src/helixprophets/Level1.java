@@ -208,7 +208,7 @@ public class Level1 extends BasicGameState {
 		Level1.render(camx,camy,1);
 //		arg2.drawString("Result: " + blocked[-(camx/64)][(y)/64] + camx + " " + y, 0,0);
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[-((camx-300)/64)][(y+260)/64]==false){
 			fighterMoveFlipped.draw(x,y);
 			camx--;
 			direction=true;
@@ -218,6 +218,12 @@ public class Level1 extends BasicGameState {
 			if(direction==false && keybinds.getRawKeyState(Keyboard.KEY_A)==false  && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
 				fighterMoveImages[1].draw(x,y);
 			}
+			
+			if(blocked[-((camx-300)/64)][(y+260)/64]==true && keybinds.getRawKeyState(Keyboard.KEY_D)==true)
+				fighterMoveImagesFlipped[1].draw(x,y);
+			if(blocked[-((camx-128)/64)][(y+260)/64]==true && keybinds.getRawKeyState(Keyboard.KEY_A)==true)
+				fighterMoveImages[1].draw(x,y);
+			
 	
 		
 		if(keybinds.getRawKeyState(Keyboard.KEY_SPACE)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
@@ -230,7 +236,7 @@ public class Level1 extends BasicGameState {
 		}
 		
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[-((camx-128)/64)][(y+260)/64]==false){
 			fighterMove.draw(x,y);
 			camx++;
 			direction=false;
@@ -250,7 +256,7 @@ public class Level1 extends BasicGameState {
 				camx++;
 				direction = false;
 			}
-			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true){
+			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && blocked[-((camx-128)/64)][(y+150)/64]==false){
 				fighterCrawlFlipped.draw(x,y);
 				camx--;
 				direction = true;
@@ -261,7 +267,7 @@ public class Level1 extends BasicGameState {
 
 			y--;
 		}
-		else if(blocked[-((camx-129)/64)][(y+300)/64]==false){
+		else if(blocked[-((camx-129)/64)][(y+320)/64]==false){
 			y++; }
 		
 		
