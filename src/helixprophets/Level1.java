@@ -27,15 +27,25 @@ import org.newdawn.slick.tiled.Layer;
 public class Level1 extends BasicGameState {
 
 	private TiledMap Level1;
+	private StateBasedGame game;
 	
 	private boolean blocked[][];
+	private boolean death[][];
 	private int tileSize = 64;
 	
 	private boolean direction = true;
 	private int x = 128;
 	private int y = 100;
 	private int camx = 0;
-	private int camy = -2*45;
+	private int camy = -9*45;
+	private float yspeed = 0;
+	private int yfoot = 0;
+	private int ymid = 0;
+	private int xcollide = 0;
+	private int xcollideleft = 0;
+	
+	private boolean jumping = false;
+	
 	
 	
 	
@@ -90,19 +100,36 @@ public class Level1 extends BasicGameState {
 	//this is where we set everything up 
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
+		game = arg1;
 		Level1 = new TiledMap("res/level1.tmx","res");
+
+		
 		
 		//this creates our collision blocks for our foreground layer of the tilemap
 		blocked = new boolean[Level1.getWidth()][Level1.getHeight()];
+		death =new boolean[Level1.getWidth()][Level1.getHeight()];
 		int layer = 1; 
 		for(int i = 0; i < Level1.getWidth(); i++) {
 		    for(int j = 0; j < Level1.getHeight(); j++) {
 		        int tileID = Level1.getTileId(i, j, layer);
+		        
 		        String value = Level1.getTileProperty(tileID, "blocked", "false");
 		        if(value.equals("true")) {
 		            blocked[i][j] = true;
+		
+		        }
+		        
 		        }
 		    }
+	
+		for(int i = 0; i < Level1.getWidth(); i++) {
+		    for(int j = 0; j < Level1.getHeight(); j++) {
+		        int tileID = Level1.getTileId(i, j, layer);
+		        String value1 = Level1.getTileProperty(tileID, "death", "false");
+		        if(value1.equals("true")) {
+		            death[i][j] = true;
+		        }
+		}
 		}
 		
 		
@@ -204,11 +231,13 @@ public class Level1 extends BasicGameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
+		
+		
 		Level1.render(camx,camy,0);
 		Level1.render(camx,camy,1);
-//		arg2.drawString("Result: " + blocked[-(camx/64)][(y)/64] + camx + " " + y, 0,0);
+//		arg2.drawString("Result: " + blocked[xcollide][yfoot] + (-camx-192/64) + " " + camy + " " + y, 0,0);
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[-((camx-300)/64)][(y+260)/64]==false){
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
 			fighterMoveFlipped.draw(x,y);
 			camx--;
 			direction=true;
@@ -219,9 +248,9 @@ public class Level1 extends BasicGameState {
 				fighterMoveImages[1].draw(x,y);
 			}
 			
-			if(blocked[-((camx-300)/64)][(y+260)/64]==true && keybinds.getRawKeyState(Keyboard.KEY_D)==true)
+			if(blocked[xcollideleft][ymid]==true && keybinds.getRawKeyState(Keyboard.KEY_D)==true)
 				fighterMoveImagesFlipped[1].draw(x,y);
-			if(blocked[-((camx-128)/64)][(y+260)/64]==true && keybinds.getRawKeyState(Keyboard.KEY_A)==true)
+			if(blocked[xcollide][ymid]==true && keybinds.getRawKeyState(Keyboard.KEY_A)==true)
 				fighterMoveImages[1].draw(x,y);
 			
 	
@@ -235,11 +264,13 @@ public class Level1 extends BasicGameState {
 			}
 		}
 		
-		
-		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[-((camx-128)/64)][(y+260)/64]==false){
+
+		if(camx<=0){
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
 			fighterMove.draw(x,y);
 			camx++;
 			direction=false;
+		}
 		}
 		
 		if(keybinds.getRawKeyState(Keyboard.KEY_S)==true){
@@ -251,25 +282,38 @@ public class Level1 extends BasicGameState {
 				
 				}
 			}
+
+			if(camx<=0){
 			if(keybinds.getRawKeyState(Keyboard.KEY_A)==true){
 				fighterCrawl.draw(x,y);
 				camx++;
 				direction = false;
 			}
-			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && blocked[-((camx-128)/64)][(y+150)/64]==false){
+			}
+			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && blocked[xcollide][yfoot]==false){
 				fighterCrawlFlipped.draw(x,y);
 				camx--;
 				direction = true;
 		}
 		}
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_W)==true){
-
-			y--;
-		}
-		else if(blocked[-((camx-129)/64)][(y+320)/64]==false){
-			y++; }
 		
+		
+
+	
+	
+		
+	if(y>=300){
+		camy--;
+		
+	}
+	if(y<=-10){
+		camy++;
+		
+	}
+	
+	
+	}
 		
 //		
 //		GL11.glBegin(GL11.GL_QUADS);
@@ -287,13 +331,44 @@ public class Level1 extends BasicGameState {
 
 			//Display.update();
 			//Display.sync(60);
-		}
 		
+
 //The update is where the action occurs, I believe.
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
+		
+		if(arg0.getInput().isKeyPressed(Keyboard.KEY_W)==true && jumping!=true){
+			yspeed=(float) (-0.55*arg2);
+            jumping = true;
+		}
+		if(jumping==true)
+			yspeed+=.03;
+		if(jumping==false)
+			yspeed=0;
+		y+=yspeed;
+		yfoot=(y+215+(-camy))/64;
+		ymid=(y+115+(-camy))/64;
+		xcollide=(-((camx-180)/64));
+		xcollideleft=(-(camx-180-172)/64);
+		
+		if(blocked[xcollide][yfoot]==false && jumping==false)
+			y++; 
+		else if(blocked[xcollide][yfoot]==true && jumping==true)
+			jumping=false;
+		
+		if(death[xcollide][yfoot]==true){
+
+			direction = true;
+			x = 128;
+			y = 100;
+			camx = 0;
+			camy = -9*45;
+		}
+		
+
 		// TODO Auto-generated method stub
+		
 		
 		
 		

@@ -1,11 +1,13 @@
 package helixprophets.beings;
 
 import helixprophets.Coords;
+import helixprophets.Keybinds;
 import helixprophets.beings.classes.Fighter;
 import helixprophets.beings.classes.Mage;
 import helixprophets.beings.classes.Rogue;
 import helixprophets.items.Inventory;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -62,7 +64,7 @@ public abstract class Character {
 	private int moveSpeed;
 	private int crawlSpeed;
 	private int jumpHeight;
-	
+//	
 	private Coords coords;
 	
 	private int health; //How did I forget that?
@@ -86,6 +88,8 @@ public abstract class Character {
 		this.crawlTextures = crawlTextures;
 		this.crawlSpeed = crawlSpeed;
 	}
+	
+	
 	
 	/**
 	 * Handles character jump textures and movement

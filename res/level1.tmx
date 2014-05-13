@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="52" height="13" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="100" height="20" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="cloudtile" tilewidth="64" tileheight="64">
   <image source="cloudtile1.png" width="192" height="512"/>
+  <tile id="0">
+   <properties>
+    <property name="death" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="death" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="death" value="true"/>
+   </properties>
+  </tile>
   <tile id="3">
    <properties>
     <property name="blocked" value="true"/>
@@ -48,26 +63,17 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Background" width="52" height="13">
+ <layer name="Background" width="100" height="20" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNjYGDgGiZYDIoH2h3U9g8PHTEvEPMBMT8NzMbmH1LtI1W9ABALArEQDcIAm39ItY8c95HqXmLtICW90TLeqBEmpPpnIOKNlv6hFcYFRv2D8A8hM6lpJ7H+IQdQ6h9c6geTf1iQ2LB6l1gAUkuMH5DrdGoCsWGIAWabzNCQCgAA
+   H4sIAAAAAAAAC+2V3Q6DIAyFidmV7j+b+v5POi5GQjpaWqigS5ucBGjBer7JJufcZDKZTCZThUZEkv0te83VOGLdEXlqL1Wf2kNFbj/GI8eoZE8Jx1wPXB+kIfG4Ns6NdfG6et3AOsWBe/ao7E2P4Pol9RfT3evh9QTrlP/SZwQu8fworLh+Sf3V+GY0nhHfb0cILc9q6jWYcpjA940Z7YUf9516fDfaPEYkl6rrxaS3Vy37SvHAuBmP+r5yfpec0ZrJm8i1+A1rxkupp548FiIn9aw3j7mwhz3zOEVj6R3KvS+2up//hceMKPSE5bF6ibhna/Yg+Z/h8liZdbngvNviaG5H45HrgZtbkXGYQ8F7OnVnG4/fM4ad8hi+4rCI6yXS5qHRAze3IuMwh4rzDoxDfACBlL5dQB8AAA==
   </data>
  </layer>
- <layer name="Foreground" width="52" height="13">
+ <layer name="Foreground" width="100" height="20">
   <properties>
    <property name="" value=""/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2R3QqAIAxGd9EvXVra+z9p381AhtPCIhUHB1b+zLMREW2NwPH3O7pP96kR32cGC1gLeFcN8xnA6DFV7qNhwA4OkZfiI+eQmoUFDpwiz/FJ9ejNHt710WqayBpHqkexmrl+2t2c28D/EO6hjzwr73Yf+Gh15R7+bjEuOLuM05AKAAA=
+   H4sIAAAAAAAAC92W3U4EIQyFJxtdFeduXMb3f1IxWZKmnpYCBSZenMjyP+dri/u2bXtSeP7d2e8A+pCs8zRJe0j7Wc/xntezT+tdau8WHL5ntG+9XGcK5cMIL1f54ZG/M9nNyNVV97Xkfk9u9tQnS86W9vh0Uqu/fG2Pn1pdsPTV+B2IrOd4ed3Kht6tZ4+SNB5azLa8Qdr5V+XhzbSGR42sOWzlUYqT1Z6O4vGS9Mp0N3jTyuNI+kp6kHYpP9EZqz315KH91trafEnc7xNI852f85b0nvRxAV9bJMW/Vuu1Oq7xRPudRh6l94mPz/Lr7rx/Td3nfbme5PpSmk/XUf+tPEpcVsY1qrMPJx48DlAM/H5/ZJLeY94fO3jkbx3NQ6ob0vz4vOs3a8+MCc5Dyx0PHkFhL/0vQGPUK4ZreEhnHk73oXGIeGQmWu4gHvQ90fKD7ncQ5TEtRjXPevlIe+d2BP1IJ9kT5aiWrxKPAMZG8IhsjoUHF/cm+1Fb/5Dfkvcat5Yal+/awyO3vXkg8bUltbxHUqy3sFnJg747aB1aG7e//v5HHqU77Fs7Dz6G2hIPNM7nruIheTEjP67M46b4eyuMS/Nr5Mmj5Xx0h5ox1Ja+C43zuT+NiJqHQB8AAA==
   </data>
  </layer>
- <objectgroup name="ijiji" width="52" height="13">
-  <object x="65" y="577" width="382" height="222"/>
-  <object x="575" y="577" width="384" height="245"/>
-  <object x="960" y="638" width="255" height="213"/>
-  <object x="1297" y="512" width="348" height="50"/>
-  <object x="1682" y="383" width="280" height="46"/>
-  <object x="2048" y="447" width="384" height="438"/>
-  <object x="2431" y="575" width="1080" height="238"/>
- </objectgroup>
 </map>
