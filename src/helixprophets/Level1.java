@@ -239,7 +239,7 @@ public class Level1 extends BasicGameState {
 		
 		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
 			fighterMoveFlipped.draw(x,y);
-			camx--;
+			camx-=2;
 			direction=true;
 		}
 			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
@@ -268,7 +268,7 @@ public class Level1 extends BasicGameState {
 		if(camx<=0){
 		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
 			fighterMove.draw(x,y);
-			camx++;
+			camx+=2;
 			direction=false;
 		}
 		}
@@ -339,22 +339,22 @@ public class Level1 extends BasicGameState {
 			throws SlickException {
 		
 		if(arg0.getInput().isKeyPressed(Keyboard.KEY_W)==true && jumping!=true){
-			yspeed=(float) (-0.55*arg2);
+			yspeed=(float) (-0.17*arg2);
             jumping = true;
 		}
 		if(jumping==true)
-			yspeed+=.03;
+			yspeed+=.04;
 		if(jumping==false)
 			yspeed=0;
 		y+=yspeed;
-		yfoot=(y+215+(-camy))/64;
+		yfoot=(y+220+(-camy))/64;
 		ymid=(y+115+(-camy))/64;
 		xcollide=(-((camx-180)/64));
 		xcollideleft=(-(camx-180-172)/64);
 		
 		if(blocked[xcollide][yfoot]==false && jumping==false)
 			y++; 
-		else if(blocked[xcollide][yfoot]==true && jumping==true)
+		else if(blocked[xcollide][yfoot]==true && blocked[xcollide][ymid]==false && jumping==true)
 			jumping=false;
 		
 		if(death[xcollide][yfoot]==true){
