@@ -16,6 +16,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Line;
+import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -43,7 +45,6 @@ public class Level1 extends BasicGameState {
 	private int ymid = 0;
 	private int xcollide = 0;
 	private int xcollideleft = 0;
-	
 	private boolean jumping = false;
 	
 	
@@ -237,9 +238,9 @@ public class Level1 extends BasicGameState {
 		Level1.render(camx,camy,1);
 //		arg2.drawString("Result: " + blocked[xcollide][yfoot] + (-camx-192/64) + " " + camy + " " + y, 0,0);
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollide][ymid]==false){
 			fighterMoveFlipped.draw(x,y);
-			camx-=2;
+			camx-=3;
 			direction=true;
 		}
 			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
@@ -268,7 +269,7 @@ public class Level1 extends BasicGameState {
 		if(camx<=0){
 		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
 			fighterMove.draw(x,y);
-			camx+=2;
+			camx+=3;
 			direction=false;
 		}
 		}
@@ -296,21 +297,10 @@ public class Level1 extends BasicGameState {
 				direction = true;
 		}
 		}
-		
-		
-		
-
-	
+		arg2.setColor(Color.green);
 	
 		
-	if(y>=300){
-		camy--;
-		
-	}
-	if(y<=-10){
-		camy++;
-		
-	}
+	
 	
 	
 	}
@@ -339,24 +329,31 @@ public class Level1 extends BasicGameState {
 			throws SlickException {
 		
 		if(arg0.getInput().isKeyPressed(Keyboard.KEY_W)==true && jumping!=true){
-			yspeed=(float) (-0.17*arg2);
+			yspeed=(float) (-0.3*arg2);
             jumping = true;
 		}
 		if(jumping==true)
-			yspeed+=.04;
+			yspeed+=.1;
 		if(jumping==false)
 			yspeed=0;
 		y+=yspeed;
 		yfoot=(y+220+(-camy))/64;
-		ymid=(y+115+(-camy))/64;
+		ymid=(y+(-camy))/64;
 		xcollide=(-((camx-180)/64));
-		xcollideleft=(-(camx-180-172)/64);
-		
+		xcollideleft=(-(camx-180-120)/64);
 		if(blocked[xcollide][yfoot]==false && jumping==false)
-			y++; 
+			jumping=true;
 		else if(blocked[xcollide][yfoot]==true && blocked[xcollide][ymid]==false && jumping==true)
 			jumping=false;
 		
+		if(y>=250){
+			camy--;
+			y-=.05;
+		}
+		if(y<=0){
+			camy++;
+		
+		}
 		if(death[xcollide][yfoot]==true){
 
 			direction = true;
