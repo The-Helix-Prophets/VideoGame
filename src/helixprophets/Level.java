@@ -1,5 +1,8 @@
 package helixprophets;
 
+import helixprophets.beings.Character;
+import helixprophets.beings.classes.Fighter;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -22,6 +25,7 @@ public abstract class Level extends BasicGameState {
 	protected boolean attackzone[][];
 	protected boolean bosslocation[][];
 	protected boolean attacking;
+	protected Character player = new Fighter();
 	protected int tileSize = 64;
 	protected int layer = 0;
 	protected boolean direction = true;

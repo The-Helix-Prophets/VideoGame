@@ -76,7 +76,6 @@ public abstract class Character implements Renderable {
 	protected int jumpHeight;
 	
 	protected boolean fighting;
-	protected boolean jumping;
 	protected boolean running;
 	protected boolean crawling;
 	protected boolean direction;
@@ -99,7 +98,38 @@ public abstract class Character implements Renderable {
 	 */
 
 	public void draw(float x, float y) {
-		
+		if(running==true && crawling==false && fighting==false){
+			if(direction==true){
+				moveFlipped.draw(x,y);
+			}
+			if(direction==false){
+				move.draw(x,y);
+			}
+		}
+		if(crawling==true && running==true){
+			if(direction==true){
+				crawlFlipped.draw(x,y);
+			}
+			if(direction==false){
+				crawl.draw(x,y);
+			}
+		}
+		if(fighting==true){
+			fightFlipped.draw(x,y);
+		}
+	}
+	
+	public void setFighting(boolean b){
+		fighting=b;
+	}
+	public void setRunning(boolean b){
+		running=b;
+	}
+	public void setDirection(boolean b){
+		direction=b;
+	}
+	public void setCrawling(boolean b){
+		crawling=b;
 	}
 	
 	
