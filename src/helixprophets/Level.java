@@ -18,6 +18,8 @@ public abstract class Level extends BasicGameState {
 	protected boolean blocked[][];
 	protected boolean death[][];
 	protected boolean finish[][];
+	protected boolean attackzone[][];
+	protected boolean bosslocation[][];
 	protected int tileSize = 64;
 	protected int layer = 0;
 	protected boolean direction = true;
@@ -88,6 +90,8 @@ public abstract class Level extends BasicGameState {
 		
 		blocked = new boolean[Map.getWidth()][Map.getHeight()];
 		death =new boolean[Map.getWidth()][Map.getHeight()];
+		attackzone =new boolean[Map.getWidth()][Map.getHeight()];
+		bosslocation =new boolean[Map.getWidth()][Map.getHeight()];
 		finish =new boolean[Map.getWidth()][Map.getHeight()];
 		for(int i = 0; i < Map.getWidth(); i++) {
 		    for(int j = 0; j < Map.getHeight(); j++) {
@@ -122,6 +126,30 @@ public abstract class Level extends BasicGameState {
 		        }
 		}
 		}
+		for(int i = 0; i < Map.getWidth(); i++) {
+		    for(int j = 0; j < Map.getHeight(); j++) {
+		        int tileID = Map.getTileId(i, j, layer);
+		        
+		        String value = Map.getTileProperty(tileID, "bosslocation", "false");
+		        if(value.equals("true")) {
+		            bosslocation[i][j] = true;
+		
+		        }
+		        
+		        }
+		    }
+		for(int i = 0; i < Map.getWidth(); i++) {
+		    for(int j = 0; j < Map.getHeight(); j++) {
+		        int tileID = Map.getTileId(i, j, layer);
+		        
+		        String value = Map.getTileProperty(tileID, "attackzone", "false");
+		        if(value.equals("true")) {
+		            attackzone[i][j] = true;
+		
+		        }
+		        
+		        }
+		    }
 	}
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
@@ -229,7 +257,7 @@ public abstract class Level extends BasicGameState {
 		for(int i=0; i<Map.getLayerCount(); i++)
 			Map.render(camx,camy,i);
 		
-		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false){
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollide][ymid]==false && blocked[xcollide][ycrawl]==false && bosslocation[xcollide][ymid]==false){
 			fighterMoveFlipped.draw(x,y);
 			camx-=4;
 			direction=true;
@@ -240,9 +268,9 @@ public abstract class Level extends BasicGameState {
 				fighterMoveImages[1].draw(x,y);
 			}
 			
-			if(blocked[xcollideleft][ymid]==true && keybinds.getRawKeyState(Keyboard.KEY_D)==true)
+			if(blocked[xcollide][ymid]==true || blocked[xcollide][ycrawl]==true || bosslocation[xcollide][ymid]==true && keybinds.getRawKeyState(Keyboard.KEY_D)==true)
 				fighterMoveImagesFlipped[1].draw(x,y);
-			if(blocked[xcollide][ymid]==true && keybinds.getRawKeyState(Keyboard.KEY_A)==true)
+			if(blocked[xcollideleft][ymid]==true || blocked[xcollideleft][ycrawl]==true && keybinds.getRawKeyState(Keyboard.KEY_A)==true)
 				fighterMoveImages[1].draw(x,y);
 			
 	
@@ -258,7 +286,7 @@ public abstract class Level extends BasicGameState {
 		
 
 		if(camx<=0){
-		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollide][ymid]==false){
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false && blocked[xcollideleft][ycrawl]==false && bosslocation[xcollideleft][ymid]==false){
 			fighterMove.draw(x,y);
 			camx+=4;
 			direction=false;
@@ -288,8 +316,7 @@ public abstract class Level extends BasicGameState {
 				direction = true;
 		}
 		}
-		arg2.setColor(Color.green);
-	
+		
 		
 	
 	
@@ -314,8 +341,8 @@ public abstract class Level extends BasicGameState {
 		yfoot=(y+220+(-camy))/64;
 		ymid=(y+128+(-camy))/64;
 		ycrawl=(y+192+(-camy))/64;
-		xcollide=(-((camx-180)/64));
-		xcollideleft=(-(camx-180-89)/64);
+		xcollide=(-((camx-180-45)/64));
+		xcollideleft=(-(camx-140)/64);
 		if(blocked[xcollide][yfoot]==false && jumping==false)
 			jumping=true;
 		else if(blocked[xcollide][yfoot]==true && blocked[xcollide][ymid]==false && jumping==true)
@@ -335,7 +362,7 @@ public abstract class Level extends BasicGameState {
 		
 		if(finish[xcollide][yfoot]==true){
 			reset();
-			game.enterState(2);
+			game.enterState(game.getCurrentStateID()+1);
 		}
 		
 	}
