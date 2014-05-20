@@ -11,65 +11,82 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Renderable;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.StateBasedGame;
 
-public abstract class Character {
-	private Texture[] moveTextures;
-	private Texture[] fightTextures;
-	private Texture[] crawlTextures;
+public abstract class Character implements Renderable {
+	protected Texture[] moveTextures;
+	protected Texture[] fightTextures;
+	protected Texture[] crawlTextures;
 
-	private Image[] mageMoveImages = new Image[9];
-	private Image[] mageFightImages = new Image[9];
-	private Image[] mageCrawling = new Image[3];
-	private Image[] mageMoveImagesFlipped = new Image[9];
-	private Image[] mageFightImagesFlipped = new Image[9];
-	private Image[] mageCrawlingFlipped = new Image[3];
+	protected Image[] mageMoveImages = new Image[9];
+	protected Image[] mageFightImages = new Image[9];
+	protected Image[] mageCrawling = new Image[3];
+	protected Image[] mageMoveImagesFlipped = new Image[9];
+	protected Image[] mageFightImagesFlipped = new Image[9];
+	protected Image[] mageCrawlingFlipped = new Image[3];
 	
-	private Image[] fighterMoveImages = new Image[9];
-	private Image[] fighterMoveImagesFlipped = new Image[9];
-	private Image[] fighterFighting = new Image[3];
-	private Image[] fighterFightingFlipped = new Image[3];
-	private Image[] fighterCrawling = new Image[3];
-	private Image[] fighterCrawlingFlipped = new Image[3];
+	protected Image[] fighterMoveImages = new Image[9];
+	protected Image[] fighterMoveImagesFlipped = new Image[9];
+	protected Image[] fighterFighting = new Image[3];
+	protected Image[] fighterFightingFlipped = new Image[3];
+	protected Image[] fighterCrawling = new Image[3];
+	protected Image[] fighterCrawlingFlipped = new Image[3];
 	
-	private Image[] rogueMoveImages = new Image[9];
-	private Image[] rogueFighting = new Image[8];
-	private Image[] rogueCrawling = new Image[3];
-	private Image[] rogueMoveImagesFlipped = new Image[9];
-	private Image[] rogueFightingFlipped = new Image[8];
-	private Image[] rogueCrawlingFlipped = new Image[3];
+	protected Image[] rogueMoveImages = new Image[9];
+	protected Image[] rogueFighting = new Image[8];
+	protected Image[] rogueCrawling = new Image[3];
+	protected Image[] rogueMoveImagesFlipped = new Image[9];
+	protected Image[] rogueFightingFlipped = new Image[8];
+	protected Image[] rogueCrawlingFlipped = new Image[3];
 	
-	private Animation fighterMove;
-	private Animation fighterMoveFlipped;
-	private Animation fighterFight;
-	private Animation fighterFightFlipped;
-	private Animation fighterCrawl;
-	private Animation fighterCrawlFlipped;
+	protected Animation fighterMove;
+	protected Animation fighterMoveFlipped;
+	protected Animation fighterFight;
+	protected Animation fighterFightFlipped;
+	protected Animation fighterCrawl;
+	protected Animation fighterCrawlFlipped;
 	
-	private Animation mageMove;
-	private Animation mageMoveFlipped;
-	private Animation mageFight;
-	private Animation mageFightFlipped;
-	private Animation mageCrawl;
-	private Animation mageCrawlFlipped;
+	protected Animation mageMove;
+	protected Animation mageMoveFlipped;
+	protected Animation mageFight;
+	protected Animation mageFightFlipped;
+	protected Animation mageCrawl;
+	protected Animation mageCrawlFlipped;
 	
-	private Animation rogueMove;
-	private Animation rogueMoveFlipped;
-	private Animation rogueFight;
-	private Animation rogueFightFlipped;
-	private Animation rogueCrawl;
-	private Animation rogueCrawlFlipped;
+	protected Animation rogueMove;
+	protected Animation rogueMoveFlipped;
+	protected Animation rogueFight;
+	protected Animation rogueFightFlipped;
+	protected Animation rogueCrawl;
+	protected Animation rogueCrawlFlipped;
 	
-	private int moveSpeed;
-	private int crawlSpeed;
-	private int jumpHeight;
+
+	protected Animation move;
+	protected Animation moveFlipped;
+	protected Animation fight;
+	protected Animation fightFlipped;
+	protected Animation crawl;
+	protected Animation crawlFlipped;
+	
+	protected int moveSpeed;
+	protected int crawlSpeed;
+	protected int jumpHeight;
+	
+	protected boolean fighting;
+	protected boolean jumping;
+	protected boolean running;
+	protected boolean crawling;
+	protected boolean direction;
+	
 //	
-	private Coords coords;
+	protected Coords coords;
 	
-	private int health; //How did I forget that?
+	protected int health; //How did I forget that?
 	
-	private static Inventory inventory = new Inventory();
+	protected static Inventory inventory = new Inventory();
 	
 	/**
 	 * Assigns Texture Arrays and General Character Variables
@@ -80,26 +97,144 @@ public abstract class Character {
 	 * @param crawlSpeed Speed at which character crawls
 	 * @param jumpHeight Speed at which character jumps
 	 */
-	
+
+	public void draw(float x, float y) {
+		
+	}
 	
 	
 	/**
 	 * Handles character jump textures and movement
 	 * @param threaded if you want the jump to operate concurrently to calling method
-	 */
-	public void jump(boolean threaded) {
-		if(threaded) {
-			new Thread(new Runnable() {
-				public void run() {
-					jump();
-				}
-			}).start();
-		} else {
-			jump();
+//	 */
+//	public void jump(boolean threaded) {
+//		if(threaded) {
+//			new Thread(new Runnable() {
+//				public void run() {
+//					jump();
+//				}
+//			}).start();
+//		} else {
+//			jump();
+//		}
+//	}
+	private void initialize(Character c) throws SlickException {
+
+		for(int i = 1; i < 10; i++) {
+			 {
+				rogueMoveImages[i-1] = new Image("res/roguewalkframe" + i + ".png");
+				rogueMoveImages[i-1] = rogueMoveImages[i-1].getScaledCopy((float) .5);
+				rogueMoveImagesFlipped[i-1] = rogueMoveImages[i-1].getFlippedCopy(true, false);
+			} 
 		}
-	}
-	private void jump() {
+		for(int i = 1; i < 9; i++) {
+			 {
+				rogueFighting[i-1] = new Image("res/roguefightframe" + i + ".png");
+				rogueFighting[i-1] = rogueFighting[i-1].getScaledCopy((float) .5);
+				rogueFightingFlipped[i-1] = rogueFighting[i-1].getFlippedCopy(true, false);
+			} 
+		}
+		for(int i = 1; i < 4; i++) {
+			 {
+				rogueCrawling[i-1] = new Image("res/rogueCrawl" + i + ".png");
+				rogueCrawling[i-1] = rogueCrawling[i-1].getScaledCopy((float) .5);
+				rogueCrawlingFlipped[i-1] = rogueCrawling[i-1].getFlippedCopy(true, false);
+			} 
+		}
 		
+		//putting the fighter move textures in the texture array
+		for(int i = 1; i < 4; i++) {
+			 {
+				fighterFighting[i-1] = new Image("res/fightfightframe" + i + ".png");
+				fighterFighting[i-1] = fighterFighting[i-1].getScaledCopy((float) .5);
+				fighterFightingFlipped[i-1] = fighterFighting[i-1].getFlippedCopy(true, false);
+			} 
+		}
+		for(int i = 1; i < 10; i++) {
+			 {
+				fighterMoveImages[i-1] = new Image("res/fightwalkframe" + i + ".png");
+				fighterMoveImages[i-1] = fighterMoveImages[i-1].getScaledCopy((float) .5);
+				fighterMoveImagesFlipped[i-1] = fighterMoveImages[i-1].getFlippedCopy(true, false);
+			} 
+		}
+		for(int i = 1; i < 4; i++) {
+			 {
+				fighterCrawling[i-1] = new Image("res/fightcrawl" + i + ".png");
+				fighterCrawling[i-1] = fighterCrawling[i-1].getScaledCopy((float) .5);
+				fighterCrawlingFlipped[i-1] = fighterCrawling[i-1].getFlippedCopy(true, false);
+			} 
+		}
+		
+		//and finally, putting the mage textures in its texture array
+		for(int i = 1; i < 10; i++) {
+			 {
+				mageFightImages[i-1] = new Image("res/magefight" + i + ".png");
+				mageFightImages[i-1] = mageFightImages[i-1].getScaledCopy((float) .5);
+				mageFightImagesFlipped[i-1] = mageFightImages[i-1].getFlippedCopy(true, false);
+			} 
+		}
+		for(int i = 1; i < 10; i++) {
+			 {
+				mageMoveImages[i-1] = new Image("res/magewalkframe" + i + ".png");
+				mageMoveImages[i-1] = mageMoveImages[i-1].getScaledCopy((float) .5);
+				mageMoveImagesFlipped[i-1] = mageMoveImages[i-1].getFlippedCopy(true, false);
+			} }
+		for(int i = 1; i < 4; i++) {
+			{
+				mageCrawling[i-1] = new Image("res/magecrawl" + i + ".png");
+				mageCrawling[i-1] = mageCrawling[i-1].getScaledCopy((float) .5);
+				mageCrawlingFlipped[i-1] = mageCrawling[i-1].getFlippedCopy(true, false);
+			} 
+		}
+		//get the specified texture from the arrays.
+		fighterMove = new Animation(fighterMoveImages, 100);
+		fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
+		fighterMove = new Animation(fighterMoveImages, 100);
+		  fighterMoveFlipped = new Animation(fighterMoveImagesFlipped, 100);
+		  fighterFight = new Animation(fighterFighting, 100);
+		  fighterFightFlipped = new Animation(fighterFightingFlipped, 100);
+		  fighterCrawl = new Animation(fighterCrawling, 100);
+		  fighterCrawlFlipped = new Animation(fighterCrawlingFlipped, 100);
+		
+		  mageMove = new Animation(mageMoveImages, 100);
+		  mageMoveFlipped = new Animation(mageMoveImagesFlipped, 100);
+		  mageFight = new Animation(mageFightImages, 100);
+		  mageFightFlipped = new Animation(mageFightImagesFlipped, 100);
+		  mageCrawl = new Animation(mageCrawling, 100);
+		  mageCrawlFlipped = new Animation(mageCrawlingFlipped, 100);
+		
+		  rogueMove = new Animation(rogueMoveImages, 100);
+		  rogueMoveFlipped = new Animation(rogueMoveImages, 100);
+		  rogueFight = new Animation(rogueFighting, 100);
+		  rogueFightFlipped = new Animation(rogueFightingFlipped, 100);
+		  rogueCrawl = new Animation(rogueCrawling, 100);
+		  rogueCrawlFlipped = new Animation(rogueCrawlingFlipped, 100);
+		  
+		  if(c instanceof Rogue){
+			  move=rogueMove;
+			  moveFlipped=rogueMoveFlipped;
+			  fight=rogueFight;
+			  fightFlipped=rogueFightFlipped;
+			  crawl=rogueCrawl;
+			  crawlFlipped=rogueCrawlFlipped;
+			  
+		  }
+		  if(c instanceof Mage){
+			  move=mageMove;
+			  moveFlipped=mageMoveFlipped;
+			  fight=mageFight;
+			  fightFlipped=mageFightFlipped;
+			  crawl=mageCrawl;
+			  crawlFlipped=mageCrawlFlipped;
+		  }
+		  if(c instanceof Fighter){
+			  move=fighterMove;
+			  moveFlipped=fighterMoveFlipped;
+			  fight=fighterFight;
+			  fightFlipped=fighterFightFlipped;
+			  crawl=fighterCrawl;
+			  crawlFlipped=fighterCrawlFlipped;
+		  }
 	}
 	
 	/**
