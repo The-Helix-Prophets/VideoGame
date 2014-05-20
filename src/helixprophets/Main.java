@@ -59,9 +59,18 @@ public class Main extends StateBasedGame {
 	public void initStatesList(GameContainer arg0) throws SlickException {
 		addState(new Splash());
 		addState(new Level1());
+		addState(new Transition1());
 		addState(new LichLair());
+		addState(new Transition2());
 		addState(new Level2());
+		addState(new Transition3());
+		addState(new CockatriceLair());
+		addState(new Transition4());
 		addState(new Level3());
+		addState(new Transition5());
+		addState(new DragonLair());
+		addState(new Transition6());
+		
 	}
 }
 	

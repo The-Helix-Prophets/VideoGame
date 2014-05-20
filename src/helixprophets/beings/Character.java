@@ -80,14 +80,6 @@ public abstract class Character {
 	 * @param crawlSpeed Speed at which character crawls
 	 * @param jumpHeight Speed at which character jumps
 	 */
-	public Character(Texture[] moveTextures, Texture[] fightTextures, Texture[] crawlTextures, int moveSpeed, int crawlSpeed, int jumpHeight) {
-		this.moveTextures = moveTextures;
-		this.moveSpeed = moveSpeed;
-		this.fightTextures = fightTextures;
-		this.jumpHeight = jumpHeight;
-		this.crawlTextures = crawlTextures;
-		this.crawlSpeed = crawlSpeed;
-	}
 	
 	
 	

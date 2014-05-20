@@ -32,7 +32,7 @@ public class Level3 extends Level {
 
 	public int getID() {
 		// TODO Auto-generated method stub
-		return 5;
+		return 9;
 	}
 
 }
