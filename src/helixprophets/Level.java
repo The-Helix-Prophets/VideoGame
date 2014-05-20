@@ -2,6 +2,8 @@ package helixprophets;
 
 import helixprophets.beings.Character;
 import helixprophets.beings.classes.Fighter;
+import helixprophets.beings.classes.Mage;
+import helixprophets.beings.classes.Rogue;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
@@ -160,6 +162,8 @@ public abstract class Level extends BasicGameState {
 			throws SlickException {
 		this.game=arg1;
 		keybinds = new Keybinds();
+		player.initialize();
+		player.classcheck(player);
 		//putting the rogue move textures in the texture array
 		for(int i = 1; i < 10; i++) {
 			 {
@@ -263,89 +267,110 @@ public abstract class Level extends BasicGameState {
 			Map.render(camx,camy,i);
 		
 		//WALKING RIGHT
-		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_A)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollide][ymid]==false && blocked[xcollide][ycrawl]==false && bosslocation[xcollide][ymid]==false){
-			direction=true;
-			fighterMoveFlipped.draw(x,y);
+		if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_A)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollide][ymid]==false && blocked[xcollide][ycrawl]==false && bosslocation[xcollide][ymid]==false)
+		{
+			player.setDirection(true);
+			player.setRunning(true);
 			camx-=4;
 		}
 		//STANDING STILL
-			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
-				fighterMoveImagesFlipped[1].draw(x,y);}
-			if(direction==false && keybinds.getRawKeyState(Keyboard.KEY_A)==false  && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
-				fighterMoveImages[1].draw(x,y);
+			if(direction==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_SPACE)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false)
+			{
+				player.setRunning(false);
+			}
+			if(direction==false && keybinds.getRawKeyState(Keyboard.KEY_A)==false  && keybinds.getRawKeyState(Keyboard.KEY_S)==false)
+			{
+				player.setRunning(false);
 			}
 		//STANDING STILL DUE TO COLLISION
 			if(blocked[xcollide][ymid]==true || blocked[xcollide][ycrawl]==true || bosslocation[xcollide][ymid]==true && keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false )
-				fighterMoveImagesFlipped[1].draw(x,y);
+				player.setRunning(false);
 			if(blocked[xcollideleft][ymid]==true || blocked[xcollideleft][ycrawl]==true && keybinds.getRawKeyState(Keyboard.KEY_A)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false)
-				fighterMoveImages[1].draw(x,y);
+				player.setRunning(false);
 			
 	
 		//ATTACKING
-		if(keybinds.getRawKeyState(Keyboard.KEY_SPACE)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
-			if(direction==true){
-				fighterFightFlipped.draw(x,y);
+		if(keybinds.getRawKeyState(Keyboard.KEY_SPACE)==true && keybinds.getRawKeyState(Keyboard.KEY_S)==false)
+		{
+			if(player.getDirection()==true)
+			{
 				attacking=true;
+				player.setFighting(true);
 			}
 		}
 		else{
 			attacking=false;
+			player.setFighting(false);
 		}
 		
 		//WALKING LEFT
-		if(camx<=0){
-		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false && blocked[xcollideleft][ycrawl]==false && bosslocation[xcollideleft][ymid]==false){
-			direction=false;
-			fighterMove.draw(x,y);
+		if(camx<=0)
+		{
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && keybinds.getRawKeyState(Keyboard.KEY_S)==false && blocked[xcollideleft][ymid]==false && blocked[xcollideleft][ycrawl]==false && bosslocation[xcollideleft][ymid]==false)
+		{
+			player.setDirection(false);
+			player.setRunning(true);
 			camx+=4;
 		}
 		}
 		//STANDING STILL DUE TO WALKING BOTH WAYS AT ONCE
-		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_D) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false){
-			if(direction==true){
-				fighterMoveImagesFlipped[1].draw(x,y);}
-		
-			if(direction==false){
-				fighterMoveImages[1].draw(x,y);
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_D) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==false)
+		{
+			if(player.getDirection())
+			{
+				player.setRunning(false);
+			}
+			if(player.getDirection()==false)
+			{
+				player.setRunning(false);
 		}
 	}
 		//SAME BUT WITH CROUCHING
-		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_D) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==true){
-			if(direction==true){
-				fighterCrawlingFlipped[1].draw(x,y);}
-		
-			if(direction==false){
-				fighterCrawling[1].draw(x,y);
+		if(keybinds.getRawKeyState(Keyboard.KEY_A) == true && keybinds.getRawKeyState(Keyboard.KEY_D) == true && keybinds.getRawKeyState(Keyboard.KEY_S)==true)
+		{
+			if(player.getDirection())
+			{
+				player.setRunning(false);
+			}
+			if(player.getDirection()==false)
+			{
+				player.setRunning(false);
 		}
 	}
 		//CROUCHING
-		if(keybinds.getRawKeyState(Keyboard.KEY_S)==true){
-			if(keybinds.getRawKeyState(Keyboard.KEY_A)==false && keybinds.getRawKeyState(Keyboard.KEY_D)==false){
-				if(direction==true){
-					fighterCrawlingFlipped[1].draw(x,y);
-					}
-				else{fighterCrawling[1].draw(x,y);
-				
-				}
+		if(keybinds.getRawKeyState(Keyboard.KEY_S)==true)
+		{
+			if(keybinds.getRawKeyState(Keyboard.KEY_A)==false && keybinds.getRawKeyState(Keyboard.KEY_D)==false)
+			{
+				player.setRunning(false);
 			}
 			//CRAWLING LEFT
-			if(camx<=0){
-			if(keybinds.getRawKeyState(Keyboard.KEY_A)==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && blocked[xcollideleft][ycrawl]==false){
-				fighterCrawl.draw(x,y);
+			if(camx<=0)
+			{
+			if(keybinds.getRawKeyState(Keyboard.KEY_A)==true && keybinds.getRawKeyState(Keyboard.KEY_D)==false && blocked[xcollideleft][ycrawl]==false)
+			{
+				player.setDirection(false);
+				player.setCrawling(true);
+				player.setRunning(true);
 				camx++;
-				direction = false;
 			}
 			}
 			//CRAWLING RIGHT
-			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_A)==false && blocked[xcollide][ycrawl]==false){
-				fighterCrawlFlipped.draw(x,y);
+			if(keybinds.getRawKeyState(Keyboard.KEY_D)==true && keybinds.getRawKeyState(Keyboard.KEY_A)==false && blocked[xcollide][ycrawl]==false)
+			{
+				player.setDirection(true);
+				player.setCrawling(true);
+				player.setRunning(true);
 				camx--;
-				direction = true;
 		}
 		}
+		else{
+			player.setCrawling(false);
+		}
+
+		player.draw(x, y);
 		
 		
-	
 	
 	
 	}
@@ -353,7 +378,6 @@ public abstract class Level extends BasicGameState {
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-
 		if(arg0.getInput().isKeyPressed(Keyboard.KEY_W)==true && jumping!=true){
 			yspeed=(float) (-0.3*arg2);
             jumping = true;
@@ -385,6 +409,9 @@ public abstract class Level extends BasicGameState {
 		
 		if(death[xcollide][yfoot]==true){
 			reset();
+		}
+		if(arg0.getInput().isKeyPressed(Keyboard.KEY_LCONTROL)==true){
+			player.changeClass(player);
 		}
 		
 		if(finish[xcollide][yfoot]==true){

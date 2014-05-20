@@ -70,15 +70,19 @@ public abstract class Character implements Renderable {
 	protected Animation fightFlipped;
 	protected Animation crawl;
 	protected Animation crawlFlipped;
+	protected Image stillFlipped;
+	protected Image still;
+	protected Image cstillFlipped;
+	protected Image cstill;
 	
 	protected int moveSpeed;
 	protected int crawlSpeed;
 	protected int jumpHeight;
 	
-	protected boolean fighting;
-	protected boolean running;
-	protected boolean crawling;
-	protected boolean direction;
+	protected boolean fighting=false;
+	protected boolean running=false;
+	protected boolean crawling=false;
+	protected boolean direction=true;
 	
 //	
 	protected Coords coords;
@@ -117,6 +121,22 @@ public abstract class Character implements Renderable {
 		if(fighting==true){
 			fightFlipped.draw(x,y);
 		}
+		if(running==false && crawling==false && fighting==false){
+			if(direction==true){
+				stillFlipped.draw(x,y);
+			}
+			if(direction==false){
+				still.draw(x,y);
+			}
+		}
+		if(running==false && crawling==true){
+			if(direction==true){
+				cstillFlipped.draw(x,y);
+			}
+			if(direction==false){
+				cstill.draw(x,y);
+			}
+		}
 	}
 	
 	public void setFighting(boolean b){
@@ -130,6 +150,49 @@ public abstract class Character implements Renderable {
 	}
 	public void setCrawling(boolean b){
 		crawling=b;
+	}
+	public void changeClass(Character c){
+		if(c instanceof Fighter){
+			move=rogueMove;
+			  moveFlipped=rogueMoveFlipped;
+			  fight=rogueFight;
+			  fightFlipped=rogueFightFlipped;
+			  crawl=rogueCrawl;
+			  crawlFlipped=rogueCrawlFlipped;
+			stillFlipped = rogueMoveImagesFlipped[1];
+			still=rogueMoveImages[1];
+			cstillFlipped=rogueCrawlingFlipped[1];
+			cstill=rogueCrawling[1];
+			c = new Rogue();
+		}
+		else if(c instanceof Rogue){
+			  move=mageMove;
+			  moveFlipped=mageMoveFlipped;
+			  fight=mageFight;
+			  fightFlipped=mageFightFlipped;
+			  crawl=mageCrawl;
+			  crawlFlipped=mageCrawlFlipped;
+			  stillFlipped = mageMoveImagesFlipped[1];
+				still=mageMoveImages[1];
+				cstillFlipped=mageCrawlingFlipped[1];
+				cstill=mageCrawling[1];
+			 c = new Mage();
+	
+		}
+		else if(c instanceof Mage){
+
+			  move=fighterMove;
+			  moveFlipped=fighterMoveFlipped;
+			  fight=fighterFight;
+			  fightFlipped=fighterFightFlipped;
+			  crawl=fighterCrawl;
+			  crawlFlipped=fighterCrawlFlipped;
+			  stillFlipped = fighterMoveImagesFlipped[1];
+				still=fighterMoveImages[1];
+				cstillFlipped=fighterCrawlingFlipped[1];
+				cstill=fighterCrawling[1];
+				c = new Fighter();
+		}
 	}
 	
 	
@@ -148,7 +211,7 @@ public abstract class Character implements Renderable {
 //			jump();
 //		}
 //	}
-	private void initialize(Character c) throws SlickException {
+	public void initialize() throws SlickException {
 
 		for(int i = 1; i < 10; i++) {
 			 {
@@ -234,19 +297,31 @@ public abstract class Character implements Renderable {
 		  mageCrawlFlipped = new Animation(mageCrawlingFlipped, 100);
 		
 		  rogueMove = new Animation(rogueMoveImages, 100);
-		  rogueMoveFlipped = new Animation(rogueMoveImages, 100);
+		  rogueMoveFlipped = new Animation(rogueMoveImagesFlipped, 100);
 		  rogueFight = new Animation(rogueFighting, 100);
 		  rogueFightFlipped = new Animation(rogueFightingFlipped, 100);
 		  rogueCrawl = new Animation(rogueCrawling, 100);
 		  rogueCrawlFlipped = new Animation(rogueCrawlingFlipped, 100);
 		  
-		  if(c instanceof Rogue){
+	}
+	
+	/**
+	 * Handles character crawl textures and movement
+	 * @param threaded if you want the jump to operate concurrently to calling method
+	 */
+	
+	public void classcheck(Character c){
+		 if(c instanceof Rogue){
 			  move=rogueMove;
 			  moveFlipped=rogueMoveFlipped;
 			  fight=rogueFight;
 			  fightFlipped=rogueFightFlipped;
 			  crawl=rogueCrawl;
 			  crawlFlipped=rogueCrawlFlipped;
+			stillFlipped = rogueMoveImagesFlipped[1];
+			still=rogueMoveImages[1];
+			cstillFlipped=rogueCrawlingFlipped[1];
+			cstill=rogueCrawling[1];
 			  
 		  }
 		  if(c instanceof Mage){
@@ -256,6 +331,10 @@ public abstract class Character implements Renderable {
 			  fightFlipped=mageFightFlipped;
 			  crawl=mageCrawl;
 			  crawlFlipped=mageCrawlFlipped;
+			  stillFlipped = mageMoveImagesFlipped[1];
+				still=mageMoveImages[1];
+				cstillFlipped=mageCrawlingFlipped[1];
+				cstill=mageCrawling[1];
 		  }
 		  if(c instanceof Fighter){
 			  move=fighterMove;
@@ -264,13 +343,12 @@ public abstract class Character implements Renderable {
 			  fightFlipped=fighterFightFlipped;
 			  crawl=fighterCrawl;
 			  crawlFlipped=fighterCrawlFlipped;
+			  stillFlipped = fighterMoveImagesFlipped[1];
+				still=fighterMoveImages[1];
+				cstillFlipped=fighterCrawlingFlipped[1];
+				cstill=fighterCrawling[1];
 		  }
 	}
-	
-	/**
-	 * Handles character crawl textures and movement
-	 * @param threaded if you want the jump to operate concurrently to calling method
-	 */
 	public void crawl(boolean threaded) {
 		if(threaded) {
 			new Thread(new Runnable() {
@@ -281,6 +359,9 @@ public abstract class Character implements Renderable {
 		} else {
 			crawl();
 		}
+	}
+	public boolean getDirection(){
+		return direction;
 	}
 	private void crawl() {
 		
