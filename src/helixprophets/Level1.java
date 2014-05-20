@@ -53,7 +53,6 @@ public class Level1 extends Level {
 		camx = 0;
 		camy = -9*45;
 	}
-	
 	}
 
 	

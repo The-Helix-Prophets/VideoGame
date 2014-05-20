@@ -6,6 +6,7 @@ import helixprophets.beings.monsters.Lich;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -50,7 +51,12 @@ public class LichLair extends Level {
 			reset();
 			lich.regen();
 		}
-		
+		if(bosslocation[(xcollide*64+128)/64][ymid]==true && attacking==true){
+			lich.reducehealth();
+		}
+		if(lich.getHealth()<=0){
+			game.enterState(3);
+		}
 		super.update(arg0, arg1, arg2);
 		
 	}

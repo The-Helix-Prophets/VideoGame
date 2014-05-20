@@ -5,7 +5,7 @@ import org.newdawn.slick.Renderable;
 
 public abstract class Boss implements Renderable {
 
-	protected int bosshealth=100;
+	protected int bosshealth=10000;
 	protected Image bossattack;
 	protected Image bossshield;
 	protected Image bossvulner;
@@ -46,7 +46,10 @@ public abstract class Boss implements Renderable {
 		
 	}
 	public void reducehealth(){
-		bosshealth-=10;
+		if(shielded==false){
+
+			bosshealth-=10;
+		}
 	}
 
 	public boolean getAttackStatus(){
@@ -54,7 +57,7 @@ public abstract class Boss implements Renderable {
 	}
 	
 	public void regen(){
-		bosshealth=100;
+		bosshealth=10000;
 	}
 	
 	public int getHealth(){

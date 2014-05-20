@@ -60,6 +60,7 @@ public class Main extends StateBasedGame {
 		addState(new Splash());
 		addState(new Level1());
 		addState(new LichLair());
+		addState(new Level2());
 		addState(new Level3());
 	}
 }
