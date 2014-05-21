@@ -433,7 +433,6 @@ public abstract class Level extends BasicGameState {
 		
 		if(death[xcollide][yfoot]==true){
 			reset();
-			game.enterState(7);
 		}
 		
 		if(finish[xcollide][yfoot]==true){
