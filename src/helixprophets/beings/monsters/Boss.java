@@ -62,7 +62,9 @@ public abstract class Boss implements Renderable {
 	}
 	
 	public void regen(){
-		
+		if(bosshealth<10000){
+			bosshealth+=500;
+		}
 	}
 	
 	public int getHealth(){
