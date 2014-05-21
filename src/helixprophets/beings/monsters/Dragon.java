@@ -12,4 +12,14 @@ public class Dragon extends Boss {
 		bossshield = new Image("res/dragon shielded.png");
 		super.draw(x, y);
 	}
+	public void cycle(int time){
+		timepassed=0;
+		timepassed+=time;
+		shielded=false;
+		attack=false;
+		if(timepassed>=2000){
+			shielded=true;
+			attack=true;
+		}
+	}
 }

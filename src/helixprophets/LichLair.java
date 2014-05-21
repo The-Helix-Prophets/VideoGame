@@ -27,10 +27,10 @@ public class LichLair extends Level {
 			throws SlickException {
 		super.render(arg0, arg1, arg2);
 		lich.draw(camx+564, camy+460);
-		if(lich.getHealth()>=50){
+		if(lich.getHealth()>=5000){
 			arg2.setColor(Color.green);
 		}
-		else if(lich.getHealth()>=25){
+		else if(lich.getHealth()>=2500){
 			arg2.setColor(Color.yellow);
 		}
 		else if(lich.getHealth()>=0){

@@ -42,6 +42,10 @@ public abstract class Level extends BasicGameState {
 	protected int xcollide = 0;
 	protected int xcollideleft = 0;
 	protected boolean jumping = false;
+	protected int classchangecount=1;
+	protected int arrowx = x;
+	protected Image arrow;
+	protected double factor;
 	
 	
 	
@@ -164,6 +168,7 @@ public abstract class Level extends BasicGameState {
 		keybinds = new Keybinds();
 		player.initialize();
 		player.classcheck(player);
+		arrow= new Image("res/arrow.png");
 		//putting the rogue move textures in the texture array
 		for(int i = 1; i < 10; i++) {
 			 {
@@ -367,6 +372,13 @@ public abstract class Level extends BasicGameState {
 		else{
 			player.setCrawling(false);
 		}
+		//ARROW
+		if(player.getFighting()==true && player.getRogueish()==true){
+			arrow.draw(arrowx, y+100);
+			
+			
+		}
+			
 
 		player.draw(x, y);
 		
@@ -378,8 +390,14 @@ public abstract class Level extends BasicGameState {
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
+		if(player.getRogueish()==true){
+			factor=-0.35;
+		}
+			else{
+				factor=-0.3;
+			}
 		if(arg0.getInput().isKeyPressed(Keyboard.KEY_W)==true && jumping!=true){
-			yspeed=(float) (-0.3*arg2);
+			yspeed=(float) (factor*arg2);
             jumping = true;
 		}
 		if(jumping==true)
@@ -394,6 +412,12 @@ public abstract class Level extends BasicGameState {
 		ycrawl=(y+192+(-camy))/64;
 		xcollide=(-((camx-180-30)/64));
 		xcollideleft=(-(camx-140)/64);
+		if(player.getRogueish()==true && arrowx<1000){
+			arrowx+=10;
+			if(arrowx>=1000){
+				arrowx=x;
+			}
+		}
 		if(blocked[xcollide][yfoot]==false && jumping==false)
 			jumping=true;
 		else if(blocked[xcollide][yfoot]==true && blocked[xcollide][ymid]==false && jumping==true)
@@ -409,9 +433,7 @@ public abstract class Level extends BasicGameState {
 		
 		if(death[xcollide][yfoot]==true){
 			reset();
-		}
-		if(arg0.getInput().isKeyPressed(Keyboard.KEY_LCONTROL)==true){
-			player.changeClass(player);
+			game.enterState(7);
 		}
 		
 		if(finish[xcollide][yfoot]==true){

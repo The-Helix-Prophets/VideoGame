@@ -83,6 +83,10 @@ public abstract class Character implements Renderable {
 	protected boolean running=false;
 	protected boolean crawling=false;
 	protected boolean direction=true;
+	protected boolean rogueish=false;
+	protected boolean sorcery=false;
+	
+	protected Image arrow;
 	
 //	
 	protected Coords coords;
@@ -142,6 +146,12 @@ public abstract class Character implements Renderable {
 	public void setFighting(boolean b){
 		fighting=b;
 	}
+	public boolean getFighting(){
+		return fighting;
+	}
+	public boolean getSorcery(){
+		return sorcery;
+	}
 	public void setRunning(boolean b){
 		running=b;
 	}
@@ -151,8 +161,10 @@ public abstract class Character implements Renderable {
 	public void setCrawling(boolean b){
 		crawling=b;
 	}
-	public void changeClass(Character c){
-		if(c instanceof Fighter){
+	public boolean getRogueish(){
+		return rogueish;
+	}
+	public void changeRogue(Character c){
 			move=rogueMove;
 			  moveFlipped=rogueMoveFlipped;
 			  fight=rogueFight;
@@ -164,8 +176,11 @@ public abstract class Character implements Renderable {
 			cstillFlipped=rogueCrawlingFlipped[1];
 			cstill=rogueCrawling[1];
 			c = new Rogue();
-		}
-		else if(c instanceof Rogue){
+			rogueish=true;
+			sorcery=false;
+	}
+	public void changeMage(Character c)
+	{
 			  move=mageMove;
 			  moveFlipped=mageMoveFlipped;
 			  fight=mageFight;
@@ -177,10 +192,11 @@ public abstract class Character implements Renderable {
 				cstillFlipped=mageCrawlingFlipped[1];
 				cstill=mageCrawling[1];
 			 c = new Mage();
-	
-		}
-		else if(c instanceof Mage){
+			 rogueish=false;
+			 sorcery=true;
 
+		}
+	public void changeFighter(Character c){
 			  move=fighterMove;
 			  moveFlipped=fighterMoveFlipped;
 			  fight=fighterFight;
@@ -192,7 +208,8 @@ public abstract class Character implements Renderable {
 				cstillFlipped=fighterCrawlingFlipped[1];
 				cstill=fighterCrawling[1];
 				c = new Fighter();
-		}
+				rogueish=false;
+				sorcery=false;
 	}
 	
 	
@@ -212,7 +229,8 @@ public abstract class Character implements Renderable {
 //		}
 //	}
 	public void initialize() throws SlickException {
-
+		
+		arrow = new Image("res/arrow.png");
 		for(int i = 1; i < 10; i++) {
 			 {
 				rogueMoveImages[i-1] = new Image("res/roguewalkframe" + i + ".png");

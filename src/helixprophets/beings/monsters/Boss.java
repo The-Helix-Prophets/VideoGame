@@ -51,13 +51,18 @@ public abstract class Boss implements Renderable {
 			bosshealth-=10;
 		}
 	}
+	public void reducehealthshot(){
+		if(shielded==false){
+		bosshealth-=50;
+		}
+	}
 
 	public boolean getAttackStatus(){
 		return attack;
 	}
 	
 	public void regen(){
-		bosshealth+=1000;
+		
 	}
 	
 	public int getHealth(){

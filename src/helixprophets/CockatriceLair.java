@@ -1,5 +1,6 @@
 package helixprophets;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -53,8 +54,25 @@ public class CockatriceLair extends Level {
 		if(bosslocation[(xcollide*64+128)/64][ymid]==true && attacking==true){
 			dragon.reducehealth();
 		}
+		if(bosslocation[arrowx/64][ymid]==true && player.getRogueish()==true){
+			dragon.reducehealthshot();
+		}
 		if(dragon.getHealth()<=0){
 			game.enterState(8);
+		}
+		if(arg0.getInput().isKeyPressed(Keyboard.KEY_LCONTROL)==true){
+
+			
+			if(classchangecount==1)
+			{
+			player.changeRogue(player);
+			classchangecount+=1;
+			}
+			else if(classchangecount==2)
+			{
+				player.changeFighter(player);
+				classchangecount=1;
+			}
 		}
 		super.update(arg0, arg1, arg2);
 		

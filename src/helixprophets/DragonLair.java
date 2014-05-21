@@ -5,6 +5,7 @@ import helixprophets.beings.monsters.Boss;
 import helixprophets.beings.monsters.Dragon;
 import helixprophets.beings.monsters.Lich;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,19 +49,42 @@ public class DragonLair extends Level {
 	
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		dragon.cycle(arg2);
-		if(attackzone[xcollide][ymid]==true && dragon.getAttackStatus()==true){
-			reset();
-			dragon.regen();
+		if(attackzone[xcollide][ycrawl]==true && dragon.getAttackStatus()==true){
+				reset();
+				dragon.regen();
+			}
+		if(bosslocation[(xcollide*64+128)/64][ymid]==true && attacking==true && player.getSorcery()==false){
+				dragon.reducehealth();
+			}
+		if(bosslocation[arrowx/64][ymid]==true && player.getRogueish()==true){
+				dragon.reducehealthshot();
+	}
+
+		if(arg0.getInput().isKeyPressed(Keyboard.KEY_SPACE)==true && player.getSorcery()==true){
+			dragon.cycle(arg2);
 		}
-		if(bosslocation[(xcollide*64+128)/64][ymid]==true && attacking==true){
-			dragon.reducehealth();
+	
+		if(arg0.getInput().isKeyPressed(Keyboard.KEY_LCONTROL)==true){
+		if(classchangecount==1)
+		{
+		player.changeRogue(player);
+		classchangecount+=1;
+		}
+		else if(classchangecount==2)
+		{
+			player.changeMage(player);
+			classchangecount+=1;
+		}
+		else if(classchangecount==3)
+		{
+			player.changeFighter(player);
+			classchangecount=1;
+		}
 		}
 		if(dragon.getHealth()<=0){
 			game.enterState(12);
 		}
 		super.update(arg0, arg1, arg2);
-		
 	}
 
 	public void reset() {
